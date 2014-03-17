@@ -2,6 +2,7 @@ var productCatalogApp = angular.module("productCatalogApp", []);
 
 productCatalogApp.controller("ProductCatalogCtrl", function ($sce, $scope, $http) {
 	$http.get("product-catalog-api/get").success(function (products) {
+		// Render the description as HTML
 		$.each(products, function () {
 			if (typeof this.description !== "undefined") {
 				this.description = $sce.trustAsHtml(this.description);
@@ -10,19 +11,24 @@ productCatalogApp.controller("ProductCatalogCtrl", function ($sce, $scope, $http
 		$scope.products = products;
 	});
 
-	$scope.sortOrderProperty = "date";
-
-	$scope.sortOrderLabel = "Latest";
+	// Set some defaults
+	$scope.sortOrder = {
+		reverse: true,
+		property: "date",
+		label: "Latest"
+	};
 
 	$scope.OnSortOrderClick = function(value) {
-		$scope.sortOrderLabel = value;
+		$scope.sortOrder.label = value;
 
 		switch (value) {
 			case "Alphabetical":
-				$scope.sortOrderProperty = "title";
+				$scope.sortOrder.reverse = false;
+				$scope.sortOrder.property = "title";
 				break;
 			default:
-				$scope.sortOrderProperty = "date";
+				$scope.sortOrder.reverse = true;
+				$scope.sortOrder.property = "date";
 		}
 	}
 });

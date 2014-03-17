@@ -21,7 +21,7 @@
 
 					<ul class="nav navbar-nav">
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort by <b>{{sortOrderLabel}}</b> <b class="caret"></b></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort by <b>{{sortOrder.label}}</b> <b class="caret"></b></a>
 							<ul class="dropdown-menu" role="menu" aria-labelledby="sort-order-filter">
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="OnSortOrderClick('Latest')">Latest</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="OnSortOrderClick('Alphabetical')">Alphabetical</a></li>
@@ -35,7 +35,7 @@
 		<div class="container">
 			<div class="row">
 				<div id="ProductList">
-					<div class="panel panel-primary" ng-repeat="product in products | filter:query | orderBy:sortOrderProperty:true">
+					<div class="panel panel-primary" ng-repeat="product in products | filter:query | orderBy:sortOrder.property:sortOrder.reverse">
 						<div class="panel-heading">
 							<h2 class="panel-title">{{product.title}}</h2>
 						</div>
