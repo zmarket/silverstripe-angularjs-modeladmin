@@ -1,0 +1,15 @@
+{
+  "name": "ss-angular-modeladmin",
+  "description": "Example application connecting Angular.js to a SilverStripe ModelAdmin.",
+  "authors": {
+    "name": "David Craig",
+    "email": "david@silverstripe.com"
+  },
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-bower-task": "~0.3.4",
+    "grunt-contrib-clean": "~0.5.0"
+  }
+}

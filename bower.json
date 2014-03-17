@@ -1,0 +1,14 @@
+{
+  "name": "ss-angular-modeladmin",
+  "description": "Example application connecting Angular.js to a SilverStripe ModelAdmin.",
+  "authors": {
+    "name": "David Craig",
+    "email": "david@silverstripe.com"
+  },
+  "private": true,
+  "dependencies": {
+    "angular": "~1.2.14",
+    "bootstrap": "~3.1.1",
+    "jquery": "~2.1.0"
+  }
+}
