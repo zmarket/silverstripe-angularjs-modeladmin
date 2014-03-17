@@ -1,6 +1,10 @@
 <?php
 class ProductCatalogAPI extends Controller {
 
+	private static $allowed_actions = array(
+		'handler'
+	);
+
 	public static $url_handlers = array(
 		'$Action' => 'handler'
 	);
