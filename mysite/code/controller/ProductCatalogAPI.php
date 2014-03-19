@@ -43,6 +43,8 @@ class ProductCatalogAPI extends Controller {
 			}
 		}
 
-		return json_encode($data);
+		$response = $this->getResponse()->addHeader('Content-type', 'application/json; charset=utf-8');
+		$response->setBody(json_encode($data));
+		return $response;
 	}
 }
