@@ -34,8 +34,8 @@
 
 		<div class="container">
 			<div class="row">
-				<div id="ProductList">
-					<div class="panel panel-primary" ng-repeat="product in products | filter:query | orderBy:sortOrder.property:sortOrder.reverse">
+				<ul id="ProductList" class="list-unstyled">
+					<li class="panel panel-primary" ng-repeat="product in products | filter:query | orderBy:sortOrder.property:sortOrder.reverse">
 						<div class="panel-heading">
 							<h2 class="panel-title">{{product.title}}</h2>
 						</div>
