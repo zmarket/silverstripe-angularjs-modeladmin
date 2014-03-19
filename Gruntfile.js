@@ -45,4 +45,5 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	grunt.registerTask("install", ["bower", "copy", "clean"]);
+	grunt.registerTask("dev", ["copy"]);
 };
