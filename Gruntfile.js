@@ -15,9 +15,6 @@ module.exports = function (grunt) {
 		copy: {
 			default: {
 				files: [{
-					src: path + "mysite/_config/config.yml",
-					dest: path + "mysite/_config/config.yml"
-				}, {
 					src: "./mysite/code/admin/ProductAdmin.php",
 					dest: path + "mysite/code/admin/ProductAdmin.php"
 				}, {

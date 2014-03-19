@@ -1,13 +1,9 @@
 <?php
 class ProductCatalogAPI extends Controller {
 
-	private static $allowed_actions = array(
-		'handler'
-	);
+	private static $allowed_actions = array('handler');
 
-	public static $url_handlers = array(
-		'$Action' => 'handler'
-	);
+	public static $url_handlers = array('$Action/$ID/$OtherID' => 'handler');
 
 	public function handler() {
 		return ($this->request->isAjax() ? self::productJSON() : $this->httpError(404, 'Page not found'));
@@ -39,6 +35,7 @@ class ProductCatalogAPI extends Controller {
 
 		$response = $this->getResponse()->addHeader('Content-type', 'application/json; charset=utf-8');
 		$response->setBody(json_encode($data));
+
 		return $response;
 	}
 }
