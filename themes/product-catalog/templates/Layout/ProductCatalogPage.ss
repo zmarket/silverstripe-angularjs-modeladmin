@@ -41,8 +41,8 @@
 						</div>
 						<div class="panel-body">
 							<div class="col-xs-12 col-md-3">
-								<p ng-hide="!product.image.path">
-									<img ng-src="{{product.image.path}}" title="{{product.image.title}}" width="100%" />
+								<p>
+									<img ng-src="{{product.image.path}}" title="{{product.image.title}}" alt="{{product.title}}" width="100%" height="auto" />
 								</p>
 							</div>
 							<div class="col-xs-12 col-md-9" ng-bind-html="product.description">{{product.description}}</div>
