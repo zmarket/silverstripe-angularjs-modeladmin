@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width" />
 		<title><% if $MetaTitle %>$MetaTitle<% else %>$Title<% end_if %> &raquo; $SiteConfig.Title</title>
 		<% base_tag %>
-		<% require themedCSS("bootstrap") %>
+		<% require css("themes/product-catalog/vendor/bootstrap/bootstrap.css") %>
 	</head>
 
 	<body>

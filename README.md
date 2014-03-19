@@ -17,21 +17,24 @@ Grab a copy of this repo:
 git clone git@github.com:flashbackzoo/silverstripe-angularjs-modeladmin.git
 ```
 
-Go to the directory:
+Change your working directory:
 ```
 cd silverstripe-angularjs-modeladmin
 ```
 
-Install the dependencies:
+Install the application:
+**Caution, this will copy repository files into your SilverStripe `mysite` and `themes` directories, overwriting existing files with the same name**
 ```
-npm install && grunt
+npm install && grunt install --path=/where/you/installed/silverstripe/
 ```
 
-Copy the files into your SilverStripe directory and do a `dev/build?flush=all`.
+Rebuild your SilverStripe database.
 
-## Setup a Product Catalog
+## Create a Product Catalog
 
-Login to the CMS and create a Product Catalog page.
+Login to the CMS and set your theme to `product-catalog`.
+
+Create a new page using the `Product Catalog` page type.
 
 Add some products via the Products ModelAdmin.
 

@@ -1,6 +1,2 @@
 .DS_Store
 node_modules/*
-themes/product-catalog/css/*
-themes/product-catalog/js/angular.js
-themes/product-catalog/js/bootstrap.js
-themes/product-catalog/js/jquery.js

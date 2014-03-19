@@ -1,40 +1,48 @@
 module.exports = function (grunt) {
 	"use strict";
 
+	var path = grunt.option("path") || "./";
+
 	grunt.initConfig({
 		bower: {
-			install: {
+			default: {
 				options: {
-					targetDir: "./themes/product-catalog/vendor",
-					layout: "byComponent",
+					targetDir: "./themes/product-catalog/vendor/",
+					cleanup: true
 				}
 			}
 		},
 		copy: {
 			default: {
-				files: [
-					{
-						src: "./themes/product-catalog/vendor/bootstrap/bootstrap.css",
-						dest: "./themes/product-catalog/css/bootstrap.css"
-					}, {
-						src: "./themes/product-catalog/vendor/bootstrap/bootstrap.js",
-						dest: "./themes/product-catalog/js/bootstrap.js"
-					}, {
-						src: "./themes/product-catalog/vendor/angular/angular.js",
-						dest: "./themes/product-catalog/js/angular.js"
-					}, {
-						src: "./themes/product-catalog/vendor/jquery/jquery.js",
-						dest: "./themes/product-catalog/js/jquery.js"
-					}
-				]
+				files: [{
+					src: path + "mysite/_config/config.yml",
+					dest: path + "mysite/_config/config.yml"
+				}, {
+					src: "./mysite/code/admin/ProductAdmin.php",
+					dest: path + "mysite/code/admin/ProductAdmin.php"
+				}, {
+					src: "./mysite/code/controller/ProductCatalogAPI.php",
+					dest: path + "mysite/code/controller/ProductCatalogAPI.php"
+				}, {
+					src: "./mysite/code/model/Product.php",
+					dest: path + "mysite/code/model/Product.php"
+				}, {
+					src: "./mysite/code/ProductCatalogPage.php",
+					dest: path + "mysite/code/ProductCatalogPage.php"
+				}, {
+					expand: true,
+					cwd: "./themes/product-catalog",
+					src: ["js/*.*", "templates/**/*.*", "vendor/**/*.*"],
+					dest: path + "themes/product-catalog/"
+				}]
 			}
 		},
-		clean: ["./bower_components", "./themes/product-catalog/vendor"]
+		clean: ["./themes/product-catalog/vendor"]
 	});
 
 	grunt.loadNpmTasks('grunt-bower-task');
 	grunt.loadNpmTasks("grunt-contrib-copy");
 	grunt.loadNpmTasks('grunt-contrib-clean');
 
-	grunt.registerTask("default", ["bower:install", "copy", "clean"]);
+	grunt.registerTask("install", ["bower", "copy", "clean"]);
 };
