@@ -9,4 +9,4 @@ SSViewer:
   theme: 'product-catalog'
 Director:
   rules:
-    '/product-catalog-api/$Action': 'ProductCatalogAPI'
+    'product-catalog-api//$Action/$ID/$Name': 'ProductCatalogAPI'

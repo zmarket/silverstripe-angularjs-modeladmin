@@ -10,13 +10,7 @@ class ProductCatalogAPI extends Controller {
 	);
 
 	public function handler() {
-		switch ($this->urlParams['Action']) {
-			case 'get':
-				$json = self::productJSON();
-				return $json;
-			default:
-				return $this->httpError(404, 'Page not found');
-		}
+		return ($this->request->isAjax() ? self::productJSON() : $this->httpError(404, 'Page not found'));
 	}
 
 	public function productJSON() {
