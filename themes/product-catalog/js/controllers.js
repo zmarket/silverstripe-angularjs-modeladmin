@@ -1,7 +1,7 @@
 var productCatalogApp = angular.module("productCatalogApp", []);
 
 productCatalogApp.controller("ProductCatalogCtrl", function ($sce, $scope, $http) {
-	$http.get("productcatalogapi", {headers: {"X-Requested-With": "XMLHttpRequest"}}).success(function (products) {
+	$http.get("productcatalogapi/" + $("#product-catalog").data("url"), {headers: {"X-Requested-With": "XMLHttpRequest"}}).success(function (products) {
 		// Render the description as HTML
 		$.each(products, function () {
 			if (typeof this.description !== "undefined") {
