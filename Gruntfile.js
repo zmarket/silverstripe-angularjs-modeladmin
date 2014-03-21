@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 				}, {
 					expand: true,
 					cwd: "./themes/product-catalog",
-					src: ["js/*.*", "templates/**/*.*", "vendor/**/*.*"],
+					src: ["js/**/*.*", "templates/**/*.*", "vendor/**/*.*"],
 					dest: path + "themes/product-catalog/"
 				}]
 			}

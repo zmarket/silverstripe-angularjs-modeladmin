@@ -1,54 +1,12 @@
 <div ng-app="productCatalogApp">
-	<div ng-controller="ProductCatalogCtrl">
-		<nav class="navbar navbar-default" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="#">Product Catalog</a>
-				</div>
-
-				<div class="collapse navbar-collapse" id="main-nav">
-					<form class="navbar-form navbar-left" role="search">
-						<div class="form-group">
-							<input class="form-control" placeholder="Search" ng-model="query">
-						</div>
-					</form>
-
-					<ul class="nav navbar-nav">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort by <b>{{sortOrder.label}}</b> <b class="caret"></b></a>
-							<ul class="dropdown-menu" role="menu" aria-labelledby="sort-order-filter">
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="OnSortOrderClick('Latest')">Latest</a></li>
-								<li role="presentation"><a role="menuitem" tabindex="-1" href="#" ng-click="OnSortOrderClick('Alphabetical')">Alphabetical</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-
+	<div ng-controller="ProductListCtrl">
+		<% include Header %>
 		<div class="container">
 			<div class="row">
-				<ul id="product-catalog" data-url="$URLSegment" class="list-unstyled">
-					<li class="panel panel-primary" ng-repeat="product in products | filter:query | orderBy:sortOrder.property:sortOrder.reverse">
-						<div class="panel-heading">
-							<h2 class="panel-title">{{product.title}}</h2>
-						</div>
-						<div class="panel-body">
-							<div class="col-xs-12 col-md-3">
-								<p>
-									<img ng-src="{{product.image.path}}" title="{{product.image.title}}" alt="{{product.title}}" width="100%" height="auto" />
-								</p>
-							</div>
-							<div class="col-xs-12 col-md-9" ng-bind-html="product.description">{{product.description}}</div>
-						</div>
-					</li>
-				</ul>
+				<% include ProductList %>
+			</div>
+			<div class="row">
+				<% include Pagination %>
 			</div>
 		</div>
 	</div>
