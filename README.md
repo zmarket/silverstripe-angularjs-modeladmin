@@ -1,6 +1,6 @@
 # SilverStripe Angular.js ModelAdmin
 
-This module connects Angular.js to a SilverStripe ModelAdmin, using a product catalog as an example.
+SilverStripe module which connects Angular.js to a SilverStripe ModelAdmin.
 
 ## Requirements
 
@@ -18,7 +18,7 @@ Change your working directory:
 cd ./my/website/folder
 ```
 
-Grab a copy of this repository:
+Grab a copy of the module:
 ```
 git clone git@github.com:flashbackzoo/silverstripe-angularjs-modeladmin.git
 ```
@@ -35,3 +35,5 @@ Login to the CMS create a new page using the `Product Catalog` page type.
 Add some products via the `Products` ModelAdmin.
 
 You're done!
+
+This module is also available on [Packagist](https://packagist.org/packages/flashbackzoo/silverstripe-angularjs-modeladmin).
