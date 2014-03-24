@@ -10,3 +10,9 @@ productCatalogFilters.filter("startFrom", function () {
 		return input.slice(start);
 	};
 });
+
+productCatalogFilters.filter("toHTML", function ($sce) {
+	return function (input) {
+		return $sce.trustAsHtml(input);
+	}
+});

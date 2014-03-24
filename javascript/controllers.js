@@ -2,7 +2,7 @@
 
 var productCatalogControllers = angular.module("productCatalogControllers", []);
 
-productCatalogControllers.controller("ProductListCtrl", function ($sce, $scope, $http) {
+productCatalogControllers.controller("ProductListCtrl", function ($scope, $http) {
 	$scope.products = [];
 
 	$scope.currentPage = 0;
@@ -52,13 +52,6 @@ productCatalogControllers.controller("ProductListCtrl", function ($sce, $scope, 
 	}
 
 	$http.get("productcatalogapi/" + $("#product-catalog").data("url"), {headers: {"X-Requested-With": "XMLHttpRequest"}}).success(function (products) {
-		// Render the product description as HTML
-		$.each(products, function () {
-			if (typeof this.description !== "undefined") {
-				this.description = $sce.trustAsHtml(this.description);
-			}
-		});
-
 		$scope.products = products;
 	});
 });
