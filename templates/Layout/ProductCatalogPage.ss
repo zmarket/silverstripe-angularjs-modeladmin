@@ -1,12 +1,12 @@
 <div ng-app="productCatalogApp">
 	<div ng-controller="ProductListCtrl">
-		<% include Header %>
+		<% include ProductCatalogHeader %>
 		<div class="container">
 			<div class="row">
-				<% include ProductList %>
+				<% include ProductCatalogProductList %>
 			</div>
 			<div class="row">
-				<% include Pagination %>
+				<% include ProductCatalogPagination %>
 			</div>
 		</div>
 	</div>

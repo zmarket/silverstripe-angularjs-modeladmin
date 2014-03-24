@@ -4,20 +4,23 @@ This is an example application which connects Angular.js to a SilverStripe Model
 
 ## Requirements
 
-You'll need [SilverStripe CMS](https://github.com/silverstripe/silverstripe-installer) plus [Node.js](http://nodejs.org/), [Grunt](https://github.com/gruntjs/grunt), and [Bower](https://github.com/bower/bower).
+You'll need [SilverStripe CMS](https://github.com/silverstripe/silverstripe-installer) plus [Bower](https://github.com/bower/bower) to manage the client-side dependencies.
 
 ## Installation
 
-Install a copy of SilverStripe. See [installation on different platforms](http://doc.silverstripe.org/framework/en/installation/), and [installation from source](http://doc.silverstripe.org/framework/en/installation/from-source).
-
-Grab a copy of this repository:
+Install a copy of SilverStripe. The easiest way is [via Composer](http://doc.silverstripe.org/framework/en/installation/composer).
 ```
-git clone git@github.com:flashbackzoo/silverstripe-angularjs-modeladmin.git
+composer create-project silverstripe/installer ./my/website/folder
 ```
 
 Change your working directory:
 ```
-cd silverstripe-angularjs-modeladmin
+cd ./my/website/folder
+```
+
+Grab a copy of this repository:
+```
+git clone git@github.com:flashbackzoo/silverstripe-angularjs-modeladmin.git
 ```
 
 Install the application:

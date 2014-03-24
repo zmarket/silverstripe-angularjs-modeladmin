@@ -78,11 +78,11 @@ class ProductCatalogPage_Controller extends Page_Controller {
 			'PRODUCTSPERPAGE' => $this->ProductsPerPage
 		);
 
-		Requirements::javascript('themes/product-catalog/vendor/jquery/jquery.js');
-		Requirements::javascript('themes/product-catalog/vendor/angular/angular.js');
-		Requirements::javascript('themes/product-catalog/vendor/bootstrap/bootstrap.js');
-		Requirements::javascript('themes/product-catalog/js/productCatalogApp/app.js');
-		Requirements::javascriptTemplate('themes/product-catalog/js/productCatalogApp/controllers.js', $CMSFieldValues);
-		Requirements::javascript('themes/product-catalog/js/productCatalogApp/filters.js');
+		Requirements::javascript(MODULE_BASE . '/vendor/jquery/dist/jquery.js');
+		Requirements::javascript(MODULE_BASE . '/vendor/angular/angular.js');
+		Requirements::javascript(MODULE_BASE . '/vendor/bootstrap/dist/js/bootstrap.js');
+		Requirements::javascript(MODULE_BASE . '/javascript/app.js');
+		Requirements::javascriptTemplate(MODULE_BASE . '/javascript/controllers.js', $CMSFieldValues);
+		Requirements::javascript(MODULE_BASE . '/javascript/filters.js');
 	}
 }
