@@ -3,6 +3,9 @@
 		<% include ProductCatalogHeader %>
 		<div class="container">
 			<div class="row">
+				$Content
+			</div>
+			<div class="row">
 				<% include ProductCatalogProductList %>
 			</div>
 			<div class="row">
