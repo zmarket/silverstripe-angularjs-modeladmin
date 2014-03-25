@@ -1,6 +1,6 @@
-# SilverStripe Angular.js ModelAdmin
+# SilverStripe AngularJS ModelAdmin
 
-SilverStripe module which connects Angular.js to a SilverStripe ModelAdmin.
+SilverStripe module which connects AngularJS to a SilverStripe ModelAdmin.
 
 ## Requirements
 
