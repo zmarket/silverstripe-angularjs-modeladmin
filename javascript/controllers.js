@@ -50,7 +50,9 @@ productCatalogControllers.controller("ProductListCtrl", function ($scope, $http)
 
 		$scope.currentPage = value;
 	}
-
+	
+	// Angular's implimentation of .get() doesn't set the "X-Requested-With" header.
+	// We set it manually so we can use SilverStripe's request->isAjax() in ProductCatalogAPI.php
 	$http.get("productcatalogapi/" + $("#product-catalog").data("url"), {headers: {"X-Requested-With": "XMLHttpRequest"}}).success(function (products) {
 		$scope.products = products;
 	});
