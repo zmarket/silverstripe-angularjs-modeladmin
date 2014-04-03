@@ -30,10 +30,23 @@ cd silverstripe-angularjs-modeladmin && bower install
 
 ## Create a Product Catalog
 
-Login to the CMS create a new page using the `Product Catalog` page type.
+Login to the CMS and create page using the `Product Catalog` page type.
 
 Add some products via the `Products` ModelAdmin.
 
 You're done!
 
+## Running the end-to-end tests
+
+Install the dependencies:
+```
+npm install
+```
+
+Then from the `test` directory:
+```
+make test HOST=http://localhost/your-product-catalog-page
+```
+
+## More information
 This module is also available on [Packagist](https://packagist.org/packages/flashbackzoo/silverstripe-angularjs-modeladmin).
