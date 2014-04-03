@@ -49,4 +49,6 @@ make test HOST=http://localhost/your-product-catalog-page
 ```
 
 ## More information
+Screenshots and info on how it fits together at the [SilverStripe blog](http://www.silverstripe.org/angularjs-powered-by-silverstripe/).
+
 This module is also available on [Packagist](https://packagist.org/packages/flashbackzoo/silverstripe-angularjs-modeladmin).
