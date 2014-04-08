@@ -8,10 +8,11 @@ var webdriver = require("selenium-webdriver"),
 	fs = require("fs");
 
 test.describe("Product Catalog", function () {
-	var driver,
+	var server,
+		driver,
 		testHost = process.env.SELENIUM_TEST_HOST,
 		testScripts = "<script type=\"text/javascript\" src=\"silverstripe-angularjs-modeladmin/vendor/angular-mocks/angular-mocks.js\"></script><script type=\"text/javascript\" src=\"silverstripe-angularjs-modeladmin/test/mockApp.js\"></script>",
-		appTemplatePath = appTemplatePath = __dirname + "/../templates/ProductCatalogPage.ss",
+		appTemplatePath = __dirname + "/../templates/ProductCatalogPage.ss",
 		appTemplate = fs.readFileSync(appTemplatePath, {encoding: "utf8"});
 
 	test.before(function () {
@@ -19,9 +20,10 @@ test.describe("Product Catalog", function () {
 		fs.writeFileSync(appTemplatePath, appTemplate.replace("</body>", testScripts + "</body>"));
 
 		// Create a Selenium Server.
-		global.server = new SeleniumServer(jar.path, {
+		server = new SeleniumServer(jar.path, {
 			port: 4444
 		});
+
 		server.start();
 		
 		// Create a Selenium WebDriver.
@@ -42,12 +44,6 @@ test.describe("Product Catalog", function () {
 			elements[0].getText().then(function (text) {
 				expect(text).to.be("Banana");
 			});
-			elements[1].getText().then(function (text) {
-				expect(text).to.be("Cherry");
-			});
-			elements[2].getText().then(function (text) {
-				expect(text).to.be("Apple");
-			});
 		});
 	});
 
@@ -65,12 +61,69 @@ test.describe("Product Catalog", function () {
 			elements[0].getText().then(function (text) {
 				expect(text).to.be("Apple");
 			});
-			elements[1].getText().then(function (text) {
-				expect(text).to.be("Banana");
-			});
-			elements[2].getText().then(function (text) {
+		});
+	});
+
+	test.it("should paginate the products", function () {
+		// Should have three pages
+		driver.findElements(webdriver.By.css(".pagination li")).then(function (elements) {
+			expect(elements.length).to.be(5);
+		});
+
+		// Back button should be disabled
+		driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(1)")).then(function (element) {
+			expect(element.length).to.be(1);
+		});
+
+		// The first page should be selected
+		driver.findElements(webdriver.By.css(".pagination li.active:nth-child(2)")).then(function (element) {
+			expect(element.length).to.be(1);
+		});
+
+		// Select the second page
+		driver.findElement(webdriver.By.css(".pagination li:nth-child(3) a")).then(function (element) {
+			element.click();
+		});
+
+		// Back button should be enabled
+		driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(1)")).then(function (element) {
+			expect(element.length).to.be(0);
+		});
+
+		// The second page should be "Cherry"
+		driver.findElements(webdriver.By.css("#product-catalog .panel-title")).then(function (elements) {
+			elements[0].getText().then(function (text) {
 				expect(text).to.be("Cherry");
 			});
+		});
+
+		// Select the third page
+		driver.findElement(webdriver.By.css(".pagination li:nth-child(4) a")).then(function (element) {
+			element.click();
+		});
+
+		// The third page should be "Apple"
+		driver.findElements(webdriver.By.css("#product-catalog .panel-title")).then(function (elements) {
+			elements[0].getText().then(function (text) {
+				expect(text).to.be("Apple");
+			});
+		});
+
+		// The forward button should be disabled
+		driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(5)")).then(function (element) {
+			expect(element.length).to.be(1);
+		});
+
+		// The back button should navigate
+		driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
+			element.click();
+			element.click();
+		});
+
+		// The forward button should navigate
+		driver.findElement(webdriver.By.css(".pagination li:nth-child(5) a")).then(function (element) {
+			element.click();
+			element.click();
 		});
 	});
 
