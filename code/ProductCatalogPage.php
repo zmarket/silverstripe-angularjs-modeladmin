@@ -20,7 +20,12 @@ class ProductCatalogPage extends Page {
 	}
 
 	public function generateProductCatalogJSON() {
-		$data = array();
+		$data = array(
+			'title' => $this->Title,
+			'description' => $this->Content,
+			'productsPerPage' => $this->ProductsPerPage,
+			'products' => array()
+		);
 
 		foreach($this->Products() as $product) {
 			$item = array(
@@ -38,7 +43,7 @@ class ProductCatalogPage extends Page {
 				);
 			}
 
-			$data[] = $item;
+			$data['products'][] = $item;
 		}
 
 		// Prefix our JSON with ")]}',\n". Angular.js handles it for us on the client.
@@ -68,21 +73,23 @@ class ProductCatalogPage extends Page {
 
 		return $JSON;
 	}
+
+	public function onAfterWrite() {
+		parent::onAfterWrite();
+
+		self::updateProductCatalogCache();
+	}
 }
 
 class ProductCatalogPage_Controller extends Page_Controller {
 	public function init() {
 		parent::init();
 
-		$CMSFieldValues = array(
-			'PRODUCTSPERPAGE' => $this->ProductsPerPage
-		);
-
 		Requirements::javascript(MODULE_BASE . '/vendor/jquery/dist/jquery.js');
 		Requirements::javascript(MODULE_BASE . '/vendor/angular/angular.js');
 		Requirements::javascript(MODULE_BASE . '/vendor/bootstrap/dist/js/bootstrap.js');
 		Requirements::javascript(MODULE_BASE . '/javascript/app.js');
-		Requirements::javascriptTemplate(MODULE_BASE . '/javascript/controllers.js', $CMSFieldValues);
+		Requirements::javascript(MODULE_BASE . '/javascript/controllers.js');
 		Requirements::javascript(MODULE_BASE . '/javascript/filters.js');
 	}
 }

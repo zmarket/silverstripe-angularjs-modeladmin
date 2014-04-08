@@ -2,9 +2,7 @@
 	<div ng-controller="ProductListCtrl">
 		<% include ProductCatalogHeader %>
 		<div class="container">
-			<div class="row">
-				$Content
-			</div>
+			<div class="row" ng-bind-html="catalogDescription | toHTML"></div>
 			<div class="row">
 				<% include ProductCatalogProductList %>
 			</div>

@@ -1,6 +1,3 @@
 "use strict";
 
-var productCatalogApp = angular.module("productCatalogApp", [
-	"productCatalogControllers",
-	"productCatalogFilters"
-]);
+angular.module("productCatalogApp", ["productCatalogControllers", "productCatalogFilters"]);
