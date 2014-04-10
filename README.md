@@ -20,7 +20,7 @@ cd ./my/website/folder
 
 Grab a copy of the module:
 ```
-git clone git@github.com:flashbackzoo/silverstripe-angularjs-modeladmin.git
+git clone https://github.com/flashbackzoo/silverstripe-angularjs-modeladmin.git
 ```
 
 Install the client-side dependencies:
