@@ -1,4 +1,4 @@
-<div ng-app="productCatalogApp">
+<div ng-app="productCatalogApp" ng-cloak>
 	<div ng-controller="ProductListCtrl">
 		<% include ProductCatalogHeader %>
 		<div class="container">
