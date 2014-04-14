@@ -1,5 +1,5 @@
 <ul id="product-catalog" data-url="$URLSegment" class="list-unstyled">
-	<li class="panel panel-primary" ng-repeat="product in products | filter:query | orderBy:sortOrder.property:sortOrder.reverse | startFrom:currentPage*productsPerPage | limitTo:productsPerPage">
+	<li class="panel panel-primary" ng-repeat="product in products | filter:query | orderBy:sortOrder.type:sortOrder.reverse | startFrom:currentPage*productsPerPage | limitTo:productsPerPage">
 		<div class="panel-heading">
 			<h2 class="panel-title">{{product.title}}</h2>
 		</div>

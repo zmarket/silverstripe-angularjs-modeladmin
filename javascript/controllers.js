@@ -9,12 +9,13 @@ productCatalogControllers.controller("ProductListCtrl", function ($scope, $http)
 
 	$scope.sortOrder = {
 		reverse: true,
-		property: "date",
+		type: "date",
 		label: "Latest"
 	};
 
 	$scope.numberOfPages = function () {
-		return Math.ceil($scope.products.length / $scope.productsPerPage);
+		var numberOfPages = Math.ceil($scope.products.length / $scope.productsPerPage);
+		return isNaN(numberOfPages) ? 0 : numberOfPages;
 	};
 
 	$scope.getNumber = function (n) {
@@ -30,11 +31,11 @@ productCatalogControllers.controller("ProductListCtrl", function ($scope, $http)
 		switch (value) {
 			case "Alphabetical":
 				$scope.sortOrder.reverse = false;
-				$scope.sortOrder.property = "title";
+				$scope.sortOrder.type = "title";
 				break;
 			default:
 				$scope.sortOrder.reverse = true;
-				$scope.sortOrder.property = "date";
+				$scope.sortOrder.type = "date";
 		}
 	};
 
