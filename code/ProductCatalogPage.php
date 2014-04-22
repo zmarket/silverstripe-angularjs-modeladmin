@@ -19,7 +19,7 @@ class ProductCatalogPage extends Page {
 		return $fields;
 	}
 
-	public function generateProductCatalogJSON() {
+	public function generateCatalogJSON() {
 		$data = array(
 			'title' => $this->Title,
 			'description' => $this->Content,
@@ -29,6 +29,7 @@ class ProductCatalogPage extends Page {
 
 		foreach($this->Products() as $product) {
 			$item = array(
+				'id' => $product->ID,
 				'date' => strtotime($product->Created),
 				'title' => $product->Title,
 				'description' => $product->Description
@@ -53,22 +54,22 @@ class ProductCatalogPage extends Page {
 		return $JSON;
 	}
 
-	public function updateProductCatalogCache() {
-		$cache = SS_Cache::factory('ProductCatalog');
+	public function updateCatalogCache() {
+		$cache = SS_Cache::factory('ProductCatalog_Catalog');
 
-		$JSON = self::generateProductCatalogJSON();
+		$JSON = self::generateCatalogJSON();
 
 		$cache->save($JSON, $this->ID);
 
 		return $JSON;
 	}
 
-	public function getProductCatalogJSON() {
-		$cache = SS_Cache::factory('ProductCatalog');
+	public function getCatalogJSON() {
+		$cache = SS_Cache::factory('ProductCatalog_Catalog');
 
 		// Try to get JSON from the cache.
 		if (!($JSON = $cache->load($this->ID))) {
-			$JSON = self::updateProductCatalogCache();
+			$JSON = self::updateCatalogCache();
 		}
 
 		return $JSON;
@@ -77,7 +78,7 @@ class ProductCatalogPage extends Page {
 	public function onAfterWrite() {
 		parent::onAfterWrite();
 
-		self::updateProductCatalogCache();
+		self::updateCatalogCache();
 	}
 }
 
@@ -86,10 +87,12 @@ class ProductCatalogPage_Controller extends Page_Controller {
 		parent::init();
 
 		Requirements::javascript(MODULE_BASE . '/vendor/jquery/dist/jquery.js');
-		Requirements::javascript(MODULE_BASE . '/vendor/angular/angular.js');
 		Requirements::javascript(MODULE_BASE . '/vendor/bootstrap/dist/js/bootstrap.js');
-		Requirements::javascript(MODULE_BASE . '/javascript/app.js');
-		Requirements::javascript(MODULE_BASE . '/javascript/controllers.js');
-		Requirements::javascript(MODULE_BASE . '/javascript/filters.js');
+		Requirements::javascript(MODULE_BASE . '/vendor/angular/angular.js');
+		Requirements::javascript(MODULE_BASE . '/vendor/angular-route/angular-route.js');
+		Requirements::javascript(MODULE_BASE . '/app/app.js');
+		Requirements::javascript(MODULE_BASE . '/app/modules/catalog/catalog.js');
+		Requirements::javascript(MODULE_BASE . '/app/modules/product/product.js');
+		Requirements::javascript(MODULE_BASE . '/app/shared/shared-filters.js');
 	}
 }
