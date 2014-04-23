@@ -47,7 +47,7 @@ test.describe("Product Catalog", function () {
 		});
 	});
 
-	test.it.skip("should filter products alphabetically", function () {
+	test.it("should filter products alphabetically", function () {
 		// Select alphabetical filtering from the dropdown.
 		driver.findElement(webdriver.By.css(".dropdown-toggle")).then(function (element) {
 			element.click();

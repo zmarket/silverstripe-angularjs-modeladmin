@@ -22,7 +22,7 @@ navigationModule.directive("catalogSortFilter", ["catalogDataService",
 
 					catalogDataService.setCatalogData({
 						sortOrder: {
-							reverse: order === "alphabetical" ? false : true,
+							reverse: order === "title" ? false : true,
 							type: order,
 							label: event.target.textContent
 						}
