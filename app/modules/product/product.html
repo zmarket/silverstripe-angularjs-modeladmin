@@ -1,2 +1,9 @@
-<img ng-src="{{product.image.path}}" title="{{product.image.title}}" alt="{{product.title}}" />
-<div ng-bind-html="product.description | toHTML"></div>
+<div class="catalog-product row">
+	<div class="col-xs-12 col-sm-4">
+		<img ng-src="{{product.image.path}}" title="{{product.image.title}}" alt="{{product.title}}" width="100%" />
+	</div>
+	<div class="col-xs-12 col-sm-8">
+		<h1>{{product.title}}</h1>
+		<div ng-bind-html="product.description | toHTML"></div>
+	</div>
+</div>

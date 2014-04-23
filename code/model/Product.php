@@ -30,7 +30,7 @@ class Product extends DataObject {
 			'description' => $this->Description
 		);
 
-		if ($image = Image::get()->byId($this->$imageID)) {
+		if ($image = Image::get()->byId($this->ImageID)) {
 			$data['image'] = array(
 				'path' => $image->Filename,
 				'title' => $image->Title

@@ -2,15 +2,10 @@
 
 var catalogModule = angular.module("catalogModule", []);
 
-catalogModule.controller("CatalogCtrl", ["$scope", "catalogDataService",
-	function ($scope, catalogDataService) {
-		$scope.catalog = catalogDataService.getCatalogData();
-	}
-]);
+catalogModule.controller("CatalogCtrl", [function () {}]);
 
 catalogModule.factory("catalogDataService", ["$window", "$http", "$rootScope",
 	function (win, $http, $rootScope) {
-		// TODO: Use angular resource
 		return {
 			updateFromRemote: true,
 			catalogData: {

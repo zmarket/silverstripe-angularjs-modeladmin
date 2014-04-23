@@ -129,7 +129,7 @@ test.describe("Product Catalog", function () {
 
 	test.after(function () {
 		// Clean up Selenium.
-		//driver.quit();
+		driver.quit();
 		server.stop();
 
 		// Remove the test scripts from the template.
