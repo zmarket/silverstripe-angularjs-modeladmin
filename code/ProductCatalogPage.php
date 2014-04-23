@@ -91,6 +91,7 @@ class ProductCatalogPage_Controller extends Page_Controller {
 		Requirements::javascript(MODULE_BASE . '/vendor/angular/angular.js');
 		Requirements::javascript(MODULE_BASE . '/vendor/angular-route/angular-route.js');
 		Requirements::javascript(MODULE_BASE . '/app/app.js');
+		Requirements::javascript(MODULE_BASE . '/app/modules/navigation/navigation.js');
 		Requirements::javascript(MODULE_BASE . '/app/modules/catalog/catalog.js');
 		Requirements::javascript(MODULE_BASE . '/app/modules/product/product.js');
 		Requirements::javascript(MODULE_BASE . '/app/shared/shared-filters.js');

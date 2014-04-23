@@ -1,5 +1,5 @@
 <ul id="product-catalog" class="list-unstyled">
-	<li class="panel panel-primary" ng-repeat="product in catalog.products | filter:query | orderBy:catalog.sortOrder.type:catalog.sortOrder.reverse | startFrom:currentPage*catalog.productsPerPage | limitTo:catalog.productsPerPage">
+	<li class="panel panel-primary" ng-repeat="product in catalog.products | filter:catalog.searchQuery | orderBy:catalog.sortOrder.type:catalog.sortOrder.reverse | startFrom:currentPage*catalog.productsPerPage | limitTo:catalog.productsPerPage">
 		<div class="panel-heading">
 			<h2 class="panel-title">
 				<a href="#/products/{{product.id}}">{{product.title}}</a>

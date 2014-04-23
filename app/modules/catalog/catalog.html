@@ -1,9 +1,13 @@
-<div class="row" ng-bind-html="catalog.description | toHTML"></div>
+<div ng-controller="CatalogCtrl">
+	<div class="row">
+		<div class="col-xs-12" ng-bind-html="catalog.description | toHTML"></div>
+	</div>
 
-<div class="row">
-	<catalog-product-list></catalog-product-list>
-</div>
+	<div class="row">
+		<catalog-product-list class="col-xs-12"></catalog-product-list>
+	</div>
 
-<div class="row">
-	<catalog-pagination></catalog-pagination>
+	<div class="row">
+		<catalog-pagination class="col-xs-12"></catalog-pagination>
+	</div>
 </div>
