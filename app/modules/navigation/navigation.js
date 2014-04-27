@@ -6,8 +6,13 @@ navigationModule.controller("NavigationCtrl", ["$scope", "catalogDataService",
 	function ($scope, catalogDataService) {
 		$scope.init = function (options) {
 			window.angular.extend($scope, options);
-			$scope.catalog = catalogDataService.getCatalogData();
 		};
+
+		$scope.catalog = catalogDataService.getCatalogData();
+
+		$scope.$on("$routeChangeSuccess", function (event, current) {
+			$scope.showFilters = current.loadedTemplateUrl === "silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html" ? true : false;
+		});
 	}
 ]);
 
