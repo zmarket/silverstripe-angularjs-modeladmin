@@ -10,13 +10,16 @@ var productCatalogApp = window.angular.module("productCatalogApp", [
 productCatalogApp.config(["$routeProvider",
 	function ($routeProvider) {
 		$routeProvider.
-			when("/products/:productId", {
+			when("/product/:productId", {
 				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/product/product.html",
 				controller: "ProductCtrl"
-			}).
-			otherwise({
+			})
+			.when("/page/:pageId", {
 				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html",
 				controller: "CatalogCtrl"
+			})
+			.otherwise({
+				redirectTo: "/page/0"
 			}
 		);
 	}

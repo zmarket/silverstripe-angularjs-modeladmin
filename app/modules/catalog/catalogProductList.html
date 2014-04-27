@@ -2,13 +2,13 @@
 	<li class="panel panel-primary" ng-repeat="product in catalog.products | filter:catalog.searchQuery | orderBy:catalog.sortOrder.type:catalog.sortOrder.reverse | startFrom:currentPage*catalog.productsPerPage | limitTo:catalog.productsPerPage">
 		<div class="panel-heading">
 			<h2 class="panel-title">
-				<a href="#/products/{{product.id}}">{{product.title}}</a>
+				<a href="#/product/{{product.id}}">{{product.title}}</a>
 			</h2>
 		</div>
 		<div class="panel-body">
 			<div class="col-xs-12 col-md-3">
 				<p>
-					<a href="#/products/{{product.id}}">
+					<a href="#/product/{{product.id}}">
 						<img ng-src="{{product.image.path}}" title="{{product.image.title}}" alt="{{product.title}}" width="100%" height="auto" />
 					</a>
 				</p>

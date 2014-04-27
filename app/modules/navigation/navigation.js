@@ -25,6 +25,10 @@ navigationModule.directive("catalogSortFilter", ["catalogDataService",
 				scope.updateSortOrder = function (event, order) {
 					event.preventDefault();
 
+					if (order === undefined) {
+						return;
+					}
+
 					catalogDataService.setCatalogData({
 						sortOrder: {
 							reverse: order === "title" ? false : true,

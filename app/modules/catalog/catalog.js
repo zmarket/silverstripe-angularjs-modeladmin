@@ -16,22 +16,13 @@ catalogModule.directive("catalogProductList", [function () {
 	}
 ]);
 
-catalogModule.directive("catalogPagination", [function () {
+catalogModule.directive("catalogPagination", ["$route",
+	function ($route) {
 		return {
 			restrict: "E",
 			templateUrl: "silverstripe-angularjs-modeladmin/app/modules/catalog/catalogPagination.html",
 			link: function (scope) {
-				scope.currentPage = 0;
-
-				scope.paginate = function (event, value) {
-					event.preventDefault();
-
-					if (event.currentTarget.parentElement.className === "disabled") {
-						return false;
-					}
-
-					scope.currentPage = value;
-				};
+				scope.currentPage = parseInt($route.current.params.pageId, 10);
 
 				scope.numberOfPages = function () {
 					var numberOfPages = Math.ceil(scope.$parent.catalog.products.length / scope.$parent.catalog.productsPerPage);

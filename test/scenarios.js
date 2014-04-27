@@ -33,97 +33,128 @@ test.describe("Product Catalog", function () {
 			build();
 	});
 
-	test.beforeEach(function () {
-		// Navigate to the product catalog.
-		driver.get(testHost);
-	});
+	test.describe("Product filtering", function () {
+		test.beforeEach(function () {
+			driver.get(testHost);
+		});
 
-	test.it("should filter products by most recent (default)", function () {
-		// Check products are in the correct order.
-		driver.findElements(webdriver.By.css("#product-catalog .panel-title")).then(function (elements) {
-			elements[0].getText().then(function (text) {
-				expect(text).to.be("Banana");
+		test.it("should filter products by most recent (default)", function () {
+			// Check products are in the correct order.
+			driver.findElements(webdriver.By.css("#product-catalog .panel-title")).then(function (elements) {
+				elements[0].getText().then(function (text) {
+					expect(text).to.be("Banana");
+				});
+			});
+		});
+
+		test.it("should filter products alphabetically", function () {
+			// Select alphabetical filtering from the dropdown.
+			driver.findElement(webdriver.By.css(".dropdown-toggle")).then(function (element) {
+				element.click();
+				driver.findElement(webdriver.By.linkText("Alphabetical")).then(function (element) {
+					element.click();
+				});
+			});
+
+			// Check products are in the correct order.
+			driver.findElements(webdriver.By.css("#product-catalog .panel-title")).then(function (elements) {
+				elements[0].getText().then(function (text) {
+					expect(text).to.be("Apple");
+				});
 			});
 		});
 	});
 
-	test.it("should filter products alphabetically", function () {
-		// Select alphabetical filtering from the dropdown.
-		driver.findElement(webdriver.By.css(".dropdown-toggle")).then(function (element) {
-			element.click();
-			driver.findElement(webdriver.By.linkText("Alphabetical")).then(function (element) {
+	test.describe("Pagination", function () {
+		test.it("should paginate the products", function () {
+			// Should have three pages
+			driver.findElements(webdriver.By.css(".pagination li")).then(function (elements) {
+				expect(elements.length).to.be(5);
+			});
+
+			// Back button should be disabled
+			driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(1)")).then(function (element) {
+				expect(element.length).to.be(1);
+			});
+
+			// The first page should be selected
+			driver.findElements(webdriver.By.css(".pagination li.active:nth-child(2)")).then(function (element) {
+				expect(element.length).to.be(1);
+			});
+
+			// Select the second page
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(3) a")).then(function (element) {
 				element.click();
 			});
-		});
 
-		// Check products are in the correct order.
-		driver.findElements(webdriver.By.css("#product-catalog .panel-title")).then(function (elements) {
-			elements[0].getText().then(function (text) {
-				expect(text).to.be("Apple");
+			// Back button should be enabled
+			driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(1)")).then(function (element) {
+				expect(element.length).to.be(0);
 			});
-		});
-	});
 
-	test.it("should paginate the products", function () {
-		// Should have three pages
-		driver.findElements(webdriver.By.css(".pagination li")).then(function (elements) {
-			expect(elements.length).to.be(5);
-		});
-
-		// Back button should be disabled
-		driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(1)")).then(function (element) {
-			expect(element.length).to.be(1);
-		});
-
-		// The first page should be selected
-		driver.findElements(webdriver.By.css(".pagination li.active:nth-child(2)")).then(function (element) {
-			expect(element.length).to.be(1);
-		});
-
-		// Select the second page
-		driver.findElement(webdriver.By.css(".pagination li:nth-child(3) a")).then(function (element) {
-			element.click();
-		});
-
-		// Back button should be enabled
-		driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(1)")).then(function (element) {
-			expect(element.length).to.be(0);
-		});
-
-		// The second page should be "Cherry"
-		driver.findElements(webdriver.By.css("#product-catalog .panel-title")).then(function (elements) {
-			elements[0].getText().then(function (text) {
-				expect(text).to.be("Cherry");
+			// The second page should be "Cherry"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Banana");
+				});
 			});
-		});
 
-		// Select the third page
-		driver.findElement(webdriver.By.css(".pagination li:nth-child(4) a")).then(function (element) {
-			element.click();
-		});
-
-		// The third page should be "Apple"
-		driver.findElements(webdriver.By.css("#product-catalog .panel-title")).then(function (elements) {
-			elements[0].getText().then(function (text) {
-				expect(text).to.be("Apple");
+			// Select the third page
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(4) a")).then(function (element) {
+				element.click();
 			});
-		});
 
-		// The forward button should be disabled
-		driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(5)")).then(function (element) {
-			expect(element.length).to.be(1);
-		});
+			// The third page should be "Apple"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Cherry");
+				});
+			});
 
-		// The back button should navigate
-		driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
-			element.click();
-			element.click();
-		});
+			// The forward button should be disabled
+			driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(5)")).then(function (elements) {
+				expect(elements.length).to.be(1);
+			});
 
-		// The forward button should navigate
-		driver.findElement(webdriver.By.css(".pagination li:nth-child(5) a")).then(function (element) {
-			element.click();
-			element.click();
+			// The back button should navigate
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
+				element.click();
+
+				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+					element.getText().then(function (text) {
+						expect(text).to.be("Banana");
+					});
+				});
+			});
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
+				element.click();
+
+				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+					element.getText().then(function (text) {
+						expect(text).to.be("Apple");
+					});
+				});
+			});
+
+			// The forward button should navigate
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(5) a")).then(function (element) {
+				element.click();
+
+				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+					element.getText().then(function (text) {
+						expect(text).to.be("Banana");
+					});
+				});
+			});
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(5) a")).then(function (element) {
+				element.click();
+
+				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+					element.getText().then(function (text) {
+						expect(text).to.be("Cherry");
+					});
+				});
+			});
 		});
 	});
 
