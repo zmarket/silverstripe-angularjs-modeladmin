@@ -17,3 +17,7 @@
 		</div>
 	</li>
 </ul>
+
+<div class="alert alert-info" ng-show="!(catalog.products | filter:catalog.searchQuery | orderBy:catalog.sortOrder.type:catalog.sortOrder.reverse | startFrom:currentPage*catalog.productsPerPage | limitTo:catalog.productsPerPage).length">
+	{{catalog.noResultsMessage}}
+</div>

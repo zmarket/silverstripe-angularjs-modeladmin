@@ -34,7 +34,8 @@ productCatalogApp.factory("catalogDataService", ["$http",
 					reverse: true,
 					type: "date",
 					label: "Latest"
-				}
+				},
+				noResultsMessage: "Sorry, no products found."
 			},
 			getCatalogData: function () {
 				var self = this,
