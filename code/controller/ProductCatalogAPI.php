@@ -14,6 +14,10 @@ class ProductCatalogAPI extends Controller {
 			$this->httpError(404, 'Page not found');
 		}
 
+		if ($params['ID'] && !$product) {
+			$this->httpError(404, 'Product not found');
+		}
+
 		// If there's a product, fetch the product's JSON, otherwise fetch the catalog JSON.
 		$JSON = ($product ? $product->getProductJSON() : $productCatalogPage->getCatalogJSON());
 

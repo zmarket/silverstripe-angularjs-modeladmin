@@ -4,7 +4,7 @@ var catalogModule = window.angular.module("catalogModule", []);
 
 catalogModule.controller("CatalogCtrl", ["$scope", "catalogDataService",
 	function ($scope, catalogDataService) {
-		$scope.catalog = catalogDataService.getCatalogData();
+		$scope.catalog = catalogDataService.get();
 	}
 ]);
 

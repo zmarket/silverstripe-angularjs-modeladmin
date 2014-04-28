@@ -23,13 +23,15 @@ productCatalogApp.config(["$routeProvider",
 			}
 		);
 	}
-]);
+])
+.run(function ($rootScope) {
+	$rootScope.catalogUrlSegment = window.$("body").data("catalog")
+});
 
-productCatalogApp.factory("catalogDataService", ["$http",
-	function ($http) {
+productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
+	function ($rootScope, $http) {
 		return {
-			updateFromRemote: true,
-			catalogData: {
+			cache: {
 				description: "",
 				products: [],
 				productsPerPage: 0,
@@ -40,33 +42,30 @@ productCatalogApp.factory("catalogDataService", ["$http",
 				},
 				noResultsMessage: "Sorry, no products found."
 			},
-			getCatalogData: function () {
-				var self = this,
-					catalogURLSegment = window.$("#view-container").data("catalog");
+			get: function () {
+				var self = this;
 
-				if (catalogURLSegment !== undefined && this.updateFromRemote) {
-					this.updateFromRemote = false;
+				// Angular's implimentation of .get() doesn't set the "X-Requested-With" header.
+				// We set it manually so we can use SilverStripe's request->isAjax() in ProductCatalogAPI.php
+				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment, {
+					headers: {"X-Requested-With": "XMLHttpRequest"},
+					cache: true
+				})
+				.success(function (data) {
+					self.cache.description = data.description;
+					self.cache.products = data.products;
+					// TODO: Replace 999 with Infinity when this happens...
+					// https://github.com/angular/angular.js/pull/6772
+					self.cache.productsPerPage = data.productsPerPage === "0" ? 999 : parseInt(data.productsPerPage, 10);
+				})
+				.error(function () {
 
-					// Angular's implimentation of .get() doesn't set the "X-Requested-With" header.
-					// We set it manually so we can use SilverStripe's request->isAjax() in ProductCatalogAPI.php
-					$http.get("productcatalogapi/" + catalogURLSegment, {
-						headers: {"X-Requested-With": "XMLHttpRequest"},
-						cache: true
-					}).success(function (data) {
-						self.catalogData.description = data.description;
-						self.catalogData.products = data.products;
-						// TODO: Replace 999 with Infinity when this happens...
-						// https://github.com/angular/angular.js/pull/6772
-						self.catalogData.productsPerPage = data.productsPerPage === "0" ? 999 : parseInt(data.productsPerPage, 10);
-					}).error(function () {
-						self.updateFromRemote = true;
-					});
-				}
+				});
 
-				return this.catalogData;
+				return this.cache;
 			},
-			setCatalogData: function (hash) {
-				window.angular.extend(this.catalogData, hash);
+			set: function (hash) {
+				window.angular.extend(this.cache, hash);
 			}
 		};
 	}

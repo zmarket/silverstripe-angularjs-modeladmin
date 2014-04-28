@@ -8,7 +8,7 @@ navigationModule.controller("NavigationCtrl", ["$scope", "catalogDataService",
 			window.angular.extend($scope, options);
 		};
 
-		$scope.catalog = catalogDataService.getCatalogData();
+		$scope.catalog = catalogDataService.get();
 
 		$scope.$on("$routeChangeSuccess", function (event, current) {
 			$scope.showFilters = current.loadedTemplateUrl === "silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html" ? true : false;
@@ -29,7 +29,7 @@ navigationModule.directive("catalogSortFilter", ["catalogDataService",
 						return;
 					}
 
-					catalogDataService.setCatalogData({
+					catalogDataService.set({
 						sortOrder: {
 							reverse: order === "title" ? false : true,
 							type: order,

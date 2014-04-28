@@ -9,11 +9,11 @@
 		<% require css("silverstripe-angularjs-modeladmin/vendor/bootstrap/dist/css/bootstrap.css") %>
 	</head>
 
-	<body ng-app="productCatalogApp">
+	<body ng-app="productCatalogApp" data-catalog="$URLSegment">
 		<%-- Main navigation --%>
 		<div ng-controller="NavigationCtrl" ng-init="init({title: '$Title'})" ng-include src="'silverstripe-angularjs-modeladmin/app/modules/navigation/navigation.html'"></div>
 
 		<%-- Main content area --%>
-		<div id="view-container" class="container" data-catalog="$URLSegment" ng-view></div>
+		<div id="view-container" class="container" ng-view></div>
 	</body>
 </html>

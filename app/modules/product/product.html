@@ -7,3 +7,7 @@
 		<div ng-bind-html="product.description | toHTML"></div>
 	</div>
 </div>
+
+<div class="alert alert-danger" ng-show="product.error">
+	Sorry, can't find that product.
+</div>
