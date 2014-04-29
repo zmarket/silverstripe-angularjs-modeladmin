@@ -33,7 +33,7 @@ test.describe("Product Catalog", function () {
 			build();
 	});
 
-	test.describe("Product filtering", function () {
+	test.describe("Sorting", function () {
 		test.beforeEach(function () {
 			driver.get(testHost);
 		});
@@ -65,7 +65,50 @@ test.describe("Product Catalog", function () {
 		});
 	});
 
+	test.describe("Filtering", function () {
+		test.beforeEach(function () {
+			driver.get(testHost);
+		});
+
+		test.it("should filter products by search query", function () {
+			// Search for "Apple"
+			driver.findElement(webdriver.By.css(".catalog-search-filter input")).then(function (element) {
+				element.sendKeys("Apple");
+			});
+
+			// There should a one product called "Apple"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Apple");
+				});
+			});
+
+			// The pagination should be hidden
+			driver.findElement(webdriver.By.css(".pagination")).then(function (element) {
+				element.isDisplayed().then(function (isDisplayed) {
+					expect(isDisplayed).to.be(false);
+				});
+			});
+
+			// Search for a non-existant product
+			driver.findElement(webdriver.By.css(".catalog-search-filter input")).then(function (element) {
+				element.sendKeys("Pies");
+			});
+
+			// The "No products found" message show be visible
+			driver.findElement(webdriver.By.css("#no-products-error-message")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Sorry, no products found.");
+				});
+			});
+		});
+	});
+
 	test.describe("Pagination", function () {
+		test.beforeEach(function () {
+			driver.get(testHost);
+		});
+
 		test.it("should paginate the products", function () {
 			// Should have three pages
 			driver.findElements(webdriver.By.css(".pagination li")).then(function (elements) {
@@ -95,7 +138,7 @@ test.describe("Product Catalog", function () {
 			// The second page should be "Cherry"
 			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
 				element.getText().then(function (text) {
-					expect(text).to.be("Banana");
+					expect(text).to.be("Cherry");
 				});
 			});
 
@@ -107,7 +150,7 @@ test.describe("Product Catalog", function () {
 			// The third page should be "Apple"
 			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
 				element.getText().then(function (text) {
-					expect(text).to.be("Cherry");
+					expect(text).to.be("Apple");
 				});
 			});
 
@@ -122,7 +165,7 @@ test.describe("Product Catalog", function () {
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
 					element.getText().then(function (text) {
-						expect(text).to.be("Banana");
+						expect(text).to.be("Cherry");
 					});
 				});
 			});
@@ -131,7 +174,7 @@ test.describe("Product Catalog", function () {
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
 					element.getText().then(function (text) {
-						expect(text).to.be("Apple");
+						expect(text).to.be("Banana");
 					});
 				});
 			});
@@ -142,7 +185,7 @@ test.describe("Product Catalog", function () {
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
 					element.getText().then(function (text) {
-						expect(text).to.be("Banana");
+						expect(text).to.be("Cherry");
 					});
 				});
 			});
@@ -151,7 +194,7 @@ test.describe("Product Catalog", function () {
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
 					element.getText().then(function (text) {
-						expect(text).to.be("Cherry");
+						expect(text).to.be("Apple");
 					});
 				});
 			});
