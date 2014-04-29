@@ -2,9 +2,18 @@
 
 var catalogModule = window.angular.module("catalogModule", []);
 
-catalogModule.controller("CatalogCtrl", ["$scope", "catalogDataService",
-	function ($scope, catalogDataService) {
+catalogModule.controller("CatalogCtrl", ["$scope", "$filter", "$route", "catalogDataService",
+	function ($scope, $filter, $route, catalogDataService) {
 		$scope.catalog = catalogDataService.get();
+
+		$scope.numberOfVisibleProducts = function () {
+			/**
+			 * The return expression breaks down like this...
+			 * (catalog.products | filter:catalog.searchQuery | orderBy:catalog.sortOrder.type:catalog.sortOrder.reverse | startFrom:currentPage*catalog.productsPerPage | limitTo:catalog.productsPerPage).length
+			**/
+
+			return $filter("limitTo")($filter("startFrom")($filter("orderBy")($filter("filter")($scope.catalog.products, $scope.catalog.searchQuery), $scope.catalog.sortOrder.type, $scope.catalog.sortOrder.reverse), parseInt($route.current.params.pageId, 10)*$scope.catalog.productsPerPage), $scope.catalog.productsPerPage).length;
+		};
 	}
 ]);
 
