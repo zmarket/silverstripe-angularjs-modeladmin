@@ -102,6 +102,25 @@ test.describe("Product catalog", function () {
 				});
 			});
 		});
+
+		test.it("should include products from previous pages", function () {
+			// Go to the second page
+			driver.findElement(webdriver.By.css(".pagination .step.forward a")).then(function (element) {
+				element.click();
+			});
+
+			// Search for a product on the previous page
+			driver.findElement(webdriver.By.css(".catalog-search-filter input")).then(function (element) {
+				element.sendKeys("Banana");
+			});
+
+			// Check the product is displayed
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Banana");
+				});
+			});
+		});
 	});
 
 	test.describe("pagination", function () {
@@ -116,8 +135,14 @@ test.describe("Product catalog", function () {
 			});
 
 			// Back button should be disabled
-			driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(1)")).then(function (element) {
-				expect(element.length).to.be(1);
+			driver.findElement(webdriver.By.css(".pagination .step.back")).then(function (element) {
+				element.click();
+
+				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+					element.getText().then(function (text) {
+						expect(text).to.be("Banana");
+					});
+				});
 			});
 
 			// The first page should be selected
@@ -128,11 +153,6 @@ test.describe("Product catalog", function () {
 			// Select the second page
 			driver.findElement(webdriver.By.css(".pagination li:nth-child(3) a")).then(function (element) {
 				element.click();
-			});
-
-			// Back button should be enabled
-			driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(1)")).then(function (element) {
-				expect(element.length).to.be(0);
 			});
 
 			// The second page should be "Cherry"
@@ -155,7 +175,7 @@ test.describe("Product catalog", function () {
 			});
 
 			// The forward button should be disabled
-			driver.findElement(webdriver.By.css(".pagination li.disabled:nth-child(5) a")).then(function (element) {
+			driver.findElement(webdriver.By.css(".pagination .step.forward a")).then(function (element) {
 				element.click();
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
@@ -166,7 +186,7 @@ test.describe("Product catalog", function () {
 			});
 
 			// The back button should navigate
-			driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
+			driver.findElement(webdriver.By.css(".pagination .step.back a")).then(function (element) {
 				element.click();
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
@@ -175,18 +195,7 @@ test.describe("Product catalog", function () {
 					});
 				});
 			});
-			driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
-				element.click();
-
-				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
-					element.getText().then(function (text) {
-						expect(text).to.be("Banana");
-					});
-				});
-			});
-
-			// The back button should be disabled
-			driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
+			driver.findElement(webdriver.By.css(".pagination .step.back a")).then(function (element) {
 				element.click();
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
@@ -197,7 +206,7 @@ test.describe("Product catalog", function () {
 			});
 
 			// The forward button should navigate
-			driver.findElement(webdriver.By.css(".pagination li:nth-child(5) a")).then(function (element) {
+			driver.findElement(webdriver.By.css(".pagination .step.forward a")).then(function (element) {
 				element.click();
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
@@ -206,7 +215,7 @@ test.describe("Product catalog", function () {
 					});
 				});
 			});
-			driver.findElement(webdriver.By.css(".pagination li:nth-child(5) a")).then(function (element) {
+			driver.findElement(webdriver.By.css(".pagination .step.forward a")).then(function (element) {
 				element.click();
 
 				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {

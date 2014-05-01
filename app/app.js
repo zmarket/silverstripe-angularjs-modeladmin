@@ -10,22 +10,22 @@ var productCatalogApp = window.angular.module("productCatalogApp", [
 productCatalogApp.config(["$routeProvider",
 	function ($routeProvider) {
 		$routeProvider.
-			when("/product/:productId", {
-				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/product/product.html",
-				controller: "ProductCtrl"
-			})
-			.when("/page/:pageId", {
+			when("/", {
 				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html",
 				controller: "CatalogCtrl"
 			})
+			.when("/product/:productId", {
+				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/product/product.html",
+				controller: "ProductCtrl"
+			})
 			.otherwise({
-				redirectTo: "/page/0"
+				redirectTo: "/"
 			}
 		);
 	}
 ])
 .run(function ($rootScope) {
-	$rootScope.catalogUrlSegment = window.$("body").data("catalog")
+	$rootScope.catalogUrlSegment = window.$("body").data("catalog");
 });
 
 productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
@@ -40,6 +40,7 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 					type: "date",
 					label: "Latest"
 				},
+				currentPage: 0,
 				noResultsMessage: "Sorry, no products found."
 			},
 			get: function () {
@@ -57,9 +58,6 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 					// TODO: Replace 999 with Infinity when this happens...
 					// https://github.com/angular/angular.js/pull/6772
 					self.cache.productsPerPage = data.productsPerPage === "0" ? 999 : parseInt(data.productsPerPage, 10);
-				})
-				.error(function () {
-
 				});
 
 				return this.cache;
