@@ -24,7 +24,8 @@ productCatalogApp.config(["$routeProvider",
 		);
 	}
 ])
-.run(function ($rootScope) {
+.run(function ($rootScope, $location) {
+	$rootScope.basePath = $location.$$absUrl;
 	$rootScope.catalogUrlSegment = window.$("body").data("catalog");
 });
 
