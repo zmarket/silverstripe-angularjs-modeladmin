@@ -7,7 +7,7 @@ var webdriver = require("selenium-webdriver"),
 	expect = require("expect.js"),
 	fs = require("fs");
 
-test.describe("Product Catalog", function () {
+test.describe("Product catalog", function () {
 	var server,
 		driver,
 		testHost = process.env.SELENIUM_TEST_HOST,
@@ -33,7 +33,7 @@ test.describe("Product Catalog", function () {
 			build();
 	});
 
-	test.describe("Sorting", function () {
+	test.describe("sorting", function () {
 		test.beforeEach(function () {
 			driver.get(testHost);
 		});
@@ -65,7 +65,7 @@ test.describe("Product Catalog", function () {
 		});
 	});
 
-	test.describe("Filtering", function () {
+	test.describe("filtering", function () {
 		test.beforeEach(function () {
 			driver.get(testHost);
 		});
@@ -104,7 +104,7 @@ test.describe("Product Catalog", function () {
 		});
 	});
 
-	test.describe("Pagination", function () {
+	test.describe("pagination", function () {
 		test.beforeEach(function () {
 			driver.get(testHost);
 		});
@@ -155,8 +155,14 @@ test.describe("Product Catalog", function () {
 			});
 
 			// The forward button should be disabled
-			driver.findElements(webdriver.By.css(".pagination li.disabled:nth-child(5)")).then(function (elements) {
-				expect(elements.length).to.be(1);
+			driver.findElement(webdriver.By.css(".pagination li.disabled:nth-child(5) a")).then(function (element) {
+				element.click();
+
+				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+					element.getText().then(function (text) {
+						expect(text).to.be("Apple");
+					});
+				});
 			});
 
 			// The back button should navigate
@@ -169,6 +175,17 @@ test.describe("Product Catalog", function () {
 					});
 				});
 			});
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
+				element.click();
+
+				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+					element.getText().then(function (text) {
+						expect(text).to.be("Banana");
+					});
+				});
+			});
+
+			// The back button should be disabled
 			driver.findElement(webdriver.By.css(".pagination li:nth-child(1) a")).then(function (element) {
 				element.click();
 
