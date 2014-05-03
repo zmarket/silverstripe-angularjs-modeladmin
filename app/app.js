@@ -7,8 +7,11 @@ var productCatalogApp = window.angular.module("productCatalogApp", [
 	"productModule"
 ]);
 
-productCatalogApp.config(["$routeProvider",
-	function ($routeProvider) {
+productCatalogApp.config(["$routeProvider", "$locationProvider",
+	function ($routeProvider, $locationProvider) {
+		// Use the HTML5 History API
+		$locationProvider.html5Mode(true);
+
 		$routeProvider.
 			when("/", {
 				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html",
@@ -24,8 +27,7 @@ productCatalogApp.config(["$routeProvider",
 		);
 	}
 ])
-.run(function ($rootScope, $location) {
-	$rootScope.basePath = $location.$$absUrl;
+.run(function ($rootScope) {
 	$rootScope.catalogUrlSegment = window.$("body").data("catalog");
 });
 

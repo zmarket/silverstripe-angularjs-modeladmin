@@ -86,6 +86,12 @@ class ProductCatalogPage_Controller extends Page_Controller {
 	public function init() {
 		parent::init();
 
+		// If the application is requested from a product page, set some properties manually.
+		if ($this->URLSegment == 'ProductCatalogPage_Controller' && $catalogPage = ProductCatalogPage::get()->First()) {
+			$this->URLSegment = $catalogPage->URLSegment;
+			$this->Title = $catalogPage->Title;
+		};
+
 		Requirements::javascript(MODULE_BASE . '/vendor/jquery/dist/jquery.js');
 		Requirements::javascript(MODULE_BASE . '/vendor/bootstrap/dist/js/bootstrap.js');
 		Requirements::javascript(MODULE_BASE . '/vendor/angular/angular.js');

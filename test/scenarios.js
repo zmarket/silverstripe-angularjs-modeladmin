@@ -48,12 +48,14 @@ test.describe("Product catalog", function () {
 		});
 
 		test.it("should filter products alphabetically", function () {
-			// Select alphabetical filtering from the dropdown.
+			// Open the dropdown
 			driver.findElement(webdriver.By.css(".dropdown-toggle")).then(function (element) {
 				element.click();
-				driver.findElement(webdriver.By.linkText("Alphabetical")).then(function (element) {
-					element.click();
-				});
+			});
+
+			// Select alphabetical filtering from the dropdown.
+			driver.findElement(webdriver.By.linkText("Alphabetical")).then(function (element) {
+				element.click();
 			});
 
 			// Check products are in the correct order.
@@ -134,14 +136,10 @@ test.describe("Product catalog", function () {
 				expect(elements.length).to.be(5);
 			});
 
-			// Back button should be disabled
-			driver.findElement(webdriver.By.css(".pagination .step.back")).then(function (element) {
-				element.click();
-
-				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
-					element.getText().then(function (text) {
-						expect(text).to.be("Banana");
-					});
+			// The product should be "Banana"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Banana");
 				});
 			});
 
@@ -174,54 +172,90 @@ test.describe("Product catalog", function () {
 				});
 			});
 
-			// The forward button should be disabled
-			driver.findElement(webdriver.By.css(".pagination .step.forward a")).then(function (element) {
-				element.click();
-
-				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
-					element.getText().then(function (text) {
-						expect(text).to.be("Apple");
-					});
-				});
-			});
-
 			// The back button should navigate
 			driver.findElement(webdriver.By.css(".pagination .step.back a")).then(function (element) {
 				element.click();
-
-				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
-					element.getText().then(function (text) {
-						expect(text).to.be("Cherry");
-					});
+			});
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Cherry");
 				});
 			});
 			driver.findElement(webdriver.By.css(".pagination .step.back a")).then(function (element) {
 				element.click();
+			});
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Banana");
+				});
+			});
 
-				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
-					element.getText().then(function (text) {
-						expect(text).to.be("Banana");
-					});
+			// Back button should be disabled
+			driver.findElement(webdriver.By.css(".pagination .step.back")).then(function (element) {
+				element.click();
+			});
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Banana");
 				});
 			});
 
 			// The forward button should navigate
 			driver.findElement(webdriver.By.css(".pagination .step.forward a")).then(function (element) {
 				element.click();
-
-				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
-					element.getText().then(function (text) {
-						expect(text).to.be("Cherry");
-					});
+			});
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Cherry");
 				});
 			});
 			driver.findElement(webdriver.By.css(".pagination .step.forward a")).then(function (element) {
 				element.click();
+			});
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Apple");
+				});
+			});
 
-				driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
-					element.getText().then(function (text) {
-						expect(text).to.be("Apple");
-					});
+			// The forward button should be disabled
+			driver.findElement(webdriver.By.css(".pagination .step.forward a")).then(function (element) {
+				element.click();
+			});
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Apple");
+				});
+			});
+		});
+
+		test.it("should retain the current page number after viewing a product", function () {
+			// Select the third page
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(4) a")).then(function (element) {
+				element.click();
+			});
+
+			// The third page should be "Apple"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Apple");
+				});
+			});
+
+			// View the "Apple" product
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title a")).then(function (element) {
+				element.click();
+			});
+
+			// Click the back button
+			driver.findElement(webdriver.By.css(".pager .previous a")).then(function (element) {
+				element.click();
+			});
+
+			// The third page should be "Apple"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Apple");
 				});
 			});
 		});

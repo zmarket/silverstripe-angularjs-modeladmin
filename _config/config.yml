@@ -1,3 +1,7 @@
 ---
-name: silverstripe-angularjs-modeladmin
+Name: ProductCatalog
+After: 'framework/routes#coreroutes'
 ---
+Director:
+  rules:
+    'product/$Action': 'ProductCatalogPage_Controller'
