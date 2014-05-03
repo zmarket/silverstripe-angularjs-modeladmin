@@ -33,6 +33,45 @@ test.describe("Product catalog", function () {
 			build();
 	});
 
+	test.describe("navigation", function () {
+		test.beforeEach(function () {
+			driver.get(testHost);
+		});
+
+		test.it("should reset the catalog to it's initial state when the 'home' button is clicked", function () {
+			// The product should be "Banana"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Banana");
+				});
+			});
+
+			// Select the third page
+			driver.findElement(webdriver.By.css(".pagination li:nth-child(4) a")).then(function (element) {
+				element.click();
+			});
+
+			// The third page should be "Apple"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Apple");
+				});
+			});
+
+			// Click the 'home' button
+			driver.findElement(webdriver.By.css(".navbar-brand")).then(function (element) {
+				element.click();
+			});
+
+			// The product should be "Banana"
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text).to.be("Banana");
+				});
+			});
+		});
+	});
+
 	test.describe("sorting", function () {
 		test.beforeEach(function () {
 			driver.get(testHost);

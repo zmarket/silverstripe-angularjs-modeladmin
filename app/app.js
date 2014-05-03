@@ -28,6 +28,7 @@ productCatalogApp.config(["$routeProvider", "$locationProvider",
 	}
 ])
 .run(function ($rootScope) {
+	// Make the URLSegment available throughout the app for use in API calls.
 	$rootScope.catalogUrlSegment = window.$("body").data("catalog");
 });
 
@@ -44,7 +45,13 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 					label: "Latest"
 				},
 				currentPage: 0,
-				noResultsMessage: "Sorry, no products found."
+				noResultsMessage: "Sorry, no products found.",
+				resetCatalogState: function () {
+					this.sortOrder.reverse = true;
+					this.sortOrder.type = "date";
+					this.sortOrder.label = "Latest";
+					this.currentPage = 0;
+				}
 			},
 			get: function () {
 				var self = this;
