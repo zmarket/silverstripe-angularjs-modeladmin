@@ -12,7 +12,7 @@
 
 	<body ng-app="productCatalogApp" data-catalog="$URLSegment">
 		<%-- Main navigation --%>
-		<div ng-controller="NavigationCtrl" ng-init="init({title: '$Title'})" ng-include src="'silverstripe-angularjs-modeladmin/app/modules/navigation/navigation.html'"></div>
+		<div ng-controller="NavigationCtrl" ng-init="init({title: '$Title'})" ng-include src="'/silverstripe-angularjs-modeladmin/app/modules/navigation/navigation.html'"></div>
 
 		<%-- Main content area --%>
 		<div id="view-container" class="container" ng-view></div>

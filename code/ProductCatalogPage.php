@@ -80,21 +80,14 @@ class ProductCatalogPage extends Page {
 
 		self::updateCatalogCache();
 	}
-
-	public function catalogBase() {
-		return Director::absoluteURL();
-	}
 }
 
 class ProductCatalogPage_Controller extends Page_Controller {
+
+	private static $allowed_actions = array('product');
+
 	public function init() {
 		parent::init();
-
-		// If the application is requested from a product page, set some properties manually.
-		if ($this->URLSegment == 'ProductCatalogPage_Controller' && $catalogPage = ProductCatalogPage::get()->First()) {
-			$this->URLSegment = $catalogPage->URLSegment;
-			$this->Title = $catalogPage->Title;
-		};
 
 		Requirements::combine_files(
 			'vendor.js',
@@ -115,5 +108,59 @@ class ProductCatalogPage_Controller extends Page_Controller {
 				MODULE_BASE . '/app/modules/product/product.js'
 			)
 		);
+	}
+
+	public function getCurrentCatalogURLSegment() {
+		$parts = array_filter(explode('/', $this->getRequest()->getVar('url')));
+
+		return (count($parts) > 0 ? end($parts) : 'home');
+	}
+
+	public function getCatalogByURLSegment($URLSegment = null) {
+		//Debug::show(ProductCatalogPage::get()->filter('URLSegment', $URLSegment)->First());die;
+		return ProductCatalogPage::get()->filter('URLSegment', $URLSegment)->First();
+	}
+
+	public function catalogBase() {
+		// Use the catalog URLSegment for the base tag href
+		$params = $this->getRequest()->allParams();
+
+		if ($params['ID'] == '') {
+			// Catalog page
+			$path = $this->getCatalogByURLSegment($this->getCurrentCatalogURLSegment())->Link();
+		} else {
+			// Product page - use the path of the catalog this product belongs to
+			$path = ProductCatalogPage::get()->byID(Product::get()->byID($params['ID'])->ProductCatalogID)->Link();
+		}
+
+		$protocol = ($_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http');
+
+		return $protocol . '://' . $_SERVER['HTTP_HOST'] . $path;
+	}
+
+	public function product($request) {
+		$params = $request->allParams();
+
+		if (!$product = Product::get()->byID($params['ID'])) {
+			$this->httpError(404, 'Product not found');
+		}
+
+		$catalog = ProductCatalogPage::get()->byID($product->ProductCatalogID);
+
+		$this->URLSegment = $catalog->URLSegment;
+		$this->Title = $catalog->Title;
+
+		return $this->renderWith('ProductCatalogPage');
+	}
+
+	public function index() {
+		$parts = array_filter(explode('/', $this->getRequest()->getVar('url')));
+
+		$catalog = $this->getCatalogByURLSegment($this->getCurrentCatalogURLSegment());
+
+		$this->URLSegment = $catalog->URLSegment;
+		$this->Title = $catalog->Title;
+
+		return $this->renderWith('ProductCatalogPage');
 	}
 }

@@ -28,19 +28,19 @@ Install the client-side dependencies:
 cd silverstripe-angularjs-modeladmin && bower install
 ```
 
-Create a [virtual host](http://httpd.apache.org/docs/2.2/vhosts/examples.html) for your new installation on your local dev environment.
+Add the following rules to your `.htaccess` file. These rules redirect AngularJS AJAX requests to right place when your catalog isn't the site index.
+```
+RewriteRule ^([\w\d\/]+silverstripe-angularjs-modeladmin)([\w\d\/.]+)$ /silverstripe-angularjs-modeladmin$2 [L]
+RewriteRule ^([\w\d\/]+productcatalogapi)([\w\d\/.]+)$ /productcatalogapi$2 [L]
+```
+
+Create a [virtual host](http://httpd.apache.org/docs/2.2/vhosts/examples.html) for the installation on your local dev environment.
 
 ## Create a Product Catalog
 
 Login to the CMS and create page using the `Product Catalog` page type.
 
 Add some products via the `Products` ModelAdmin.
-
-Add the following rules to your `.htaccess` file. This enables you to have product catalogs on any path you like.
-```
-RewriteRule ^([\w\d\/]+silverstripe-angularjs-modeladmin)([\w\d\/.]+)$ /silverstripe-angularjs-modeladmin$2 [L,NC]
-RewriteRule ^([\w\d\/]+productcatalogapi)([\w\d\/.]+)$ /productcatalogapi$2 [L,NC]
-```
 
 You're done!
 
@@ -53,7 +53,7 @@ npm install
 
 Then from the `test` directory:
 ```
-make test HOST=http://localhost/your-product-catalog-page
+make test HOST=http://your.local/product-catalog
 ```
 
 ## More information

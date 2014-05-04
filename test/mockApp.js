@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("mockApp", ["ngMockE2E"])
+window.angular.module("mockApp", ["ngMockE2E"])
 	.run(function ($httpBackend) {
 		// Create some mock data.
 		var d = new Date();
@@ -17,7 +17,7 @@ angular.module("mockApp", ["ngMockE2E"])
 		}));
 
 		// Stub catalog requests
-		$httpBackend.whenGET(/^productcatalogapi\//).respond(200, ")]}',\n" + JSON.stringify({
+		$httpBackend.whenGET(/([\m\d\/]?)+productcatalogapi/).respond(200, ")]}',\n" + JSON.stringify({
 			title: "Fruit!",
 			description: "<p>Five plus a day every day.</p>",
 			productsPerPage: 1,
@@ -40,8 +40,8 @@ angular.module("mockApp", ["ngMockE2E"])
 		}));
 
 		// Allow all calls not to the API to pass through normally
-		$httpBackend.whenGET(/^silverstripe-angularjs-modeladmin\//).passThrough();
+		$httpBackend.whenGET(/([\m\d\/]?)+silverstripe-angularjs-modeladmin/).passThrough();
 	}
 );
 
-angular.module("productCatalogApp").requires.push("mockApp");
+window.angular.module("productCatalogApp").requires.push("mockApp");

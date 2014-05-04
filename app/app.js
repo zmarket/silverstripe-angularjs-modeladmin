@@ -14,11 +14,11 @@ productCatalogApp.config(["$routeProvider", "$locationProvider",
 
 		$routeProvider.
 			when("/", {
-				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html",
+				templateUrl: "/silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html",
 				controller: "CatalogCtrl"
 			})
 			.when("/product/:productId", {
-				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/product/product.html",
+				templateUrl: "/silverstripe-angularjs-modeladmin/app/modules/product/product.html",
 				controller: "ProductCtrl"
 			})
 			.otherwise({
@@ -58,7 +58,7 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 
 				// Angular's implimentation of .get() doesn't set the "X-Requested-With" header.
 				// We set it manually so we can use SilverStripe's request->isAjax() in ProductCatalogAPI.php
-				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment, {
+				$http.get("/productcatalogapi/" + $rootScope.catalogUrlSegment, {
 					headers: {"X-Requested-With": "XMLHttpRequest"},
 					cache: true
 				})
