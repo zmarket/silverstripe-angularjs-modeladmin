@@ -38,7 +38,9 @@ Create a [virtual host](http://httpd.apache.org/docs/2.2/vhosts/examples.html) f
 
 ## Create a Product Catalog
 
-Login to the CMS and create page using the `Product Catalog` page type.
+Login to the CMS.
+
+Create a new page at `/catalog` using the `Product Catalog` page type.
 
 Add some products via the `Products` ModelAdmin.
 
