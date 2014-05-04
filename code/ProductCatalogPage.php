@@ -80,6 +80,10 @@ class ProductCatalogPage extends Page {
 
 		self::updateCatalogCache();
 	}
+
+	public function catalogBase() {
+		return Director::absoluteURL();
+	}
 }
 
 class ProductCatalogPage_Controller extends Page_Controller {

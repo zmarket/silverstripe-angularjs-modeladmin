@@ -5,7 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<title><% if $MetaTitle %>$MetaTitle<% else %>$Title<% end_if %> &raquo; $SiteConfig.Title</title>
-		<% base_tag %>
+		<base href="$catalogBase" />
 		<% require css("silverstripe-angularjs-modeladmin/vendor/bootstrap/dist/css/bootstrap.css") %>
 		<% require css("silverstripe-angularjs-modeladmin/app/modules/product/product.css") %>
 	</head>
