@@ -112,8 +112,7 @@ class ProductCatalogPage_Controller extends Page_Controller {
 				MODULE_BASE . '/app/app.js',
 				MODULE_BASE . '/app/modules/navigation/navigation.js',
 				MODULE_BASE . '/app/modules/catalog/catalog.js',
-				MODULE_BASE . '/app/modules/product/product.js',
-				MODULE_BASE . '/app/shared/shared-filters.js'
+				MODULE_BASE . '/app/modules/product/product.js'
 			)
 		);
 	}
