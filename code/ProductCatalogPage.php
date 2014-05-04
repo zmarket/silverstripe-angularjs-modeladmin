@@ -96,14 +96,25 @@ class ProductCatalogPage_Controller extends Page_Controller {
 			$this->Title = $catalogPage->Title;
 		};
 
-		Requirements::javascript(MODULE_BASE . '/vendor/jquery/dist/jquery.js');
-		Requirements::javascript(MODULE_BASE . '/vendor/bootstrap/dist/js/bootstrap.js');
-		Requirements::javascript(MODULE_BASE . '/vendor/angular/angular.js');
-		Requirements::javascript(MODULE_BASE . '/vendor/angular-route/angular-route.js');
-		Requirements::javascript(MODULE_BASE . '/app/app.js');
-		Requirements::javascript(MODULE_BASE . '/app/modules/navigation/navigation.js');
-		Requirements::javascript(MODULE_BASE . '/app/modules/catalog/catalog.js');
-		Requirements::javascript(MODULE_BASE . '/app/modules/product/product.js');
-		Requirements::javascript(MODULE_BASE . '/app/shared/shared-filters.js');
+		Requirements::combine_files(
+			'vendor.js',
+			array(
+				MODULE_BASE . '/vendor/jquery/dist/jquery.min.js',
+				MODULE_BASE . '/vendor/bootstrap/dist/js/bootstrap.min.js',
+				MODULE_BASE . '/vendor/angular/angular.min.js',
+				MODULE_BASE . '/vendor/angular-route/angular-route.min.js'
+			)
+		);
+
+		Requirements::combine_files(
+			'application.js',
+			array(
+				MODULE_BASE . '/app/app.js',
+				MODULE_BASE . '/app/modules/navigation/navigation.js',
+				MODULE_BASE . '/app/modules/catalog/catalog.js',
+				MODULE_BASE . '/app/modules/product/product.js',
+				MODULE_BASE . '/app/shared/shared-filters.js'
+			)
+		);
 	}
 }
