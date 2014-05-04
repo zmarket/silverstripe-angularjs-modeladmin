@@ -5,10 +5,21 @@ angular.module("mockApp", ["ngMockE2E"])
 		// Create some mock data.
 		var d = new Date();
 
-		// Stub AngularJS GET requests to the API and return mock data.
+		// Stub product requests
+		$httpBackend.whenGET(/^(productcatalogapi)\/([A-z0-9\-]*)\/([0-9]*)/).respond(200, ")]}',\n" + JSON.stringify({
+			id: 1,
+			title: "Banana",
+			description: "<p>A banana is an edible fruit produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called plantains.</p>",
+			date: d.setDate(d.getDate() - 1),
+			image: {
+				path: "silverstripe-angularjs-modeladmin/test/banana.jpg"
+			}
+		}));
+
+		// Stub catalog requests
 		$httpBackend.whenGET(/^productcatalogapi\//).respond(200, ")]}',\n" + JSON.stringify({
 			title: "Fruit!",
-			description: "<p>Five plus a day, every day.</p>",
+			description: "<p>Five plus a day every day.</p>",
 			productsPerPage: 1,
 			products: [{
 				id: 1,
@@ -27,7 +38,6 @@ angular.module("mockApp", ["ngMockE2E"])
 				date: d.setDate(d.getDate() - 1)
 			}]
 		}));
-		//$httpBackend.whenGET(/^productcatalogapi\//).passThrough();
 
 		// Allow all calls not to the API to pass through normally
 		$httpBackend.whenGET(/^silverstripe-angularjs-modeladmin\//).passThrough();

@@ -300,6 +300,62 @@ test.describe("Product catalog", function () {
 		});
 	});
 
+	test.describe("products", function () {
+		test.beforeEach(function () {
+			driver.get(testHost);
+		});
+
+		test.it("should display on their own template", function () {
+			// View the first product
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title a")).then(function (element) {
+				element.click();
+			});
+
+			// The product filters should be hidden
+			driver.findElement(webdriver.By.css("#catalog-filters")).then(function (element) {
+				element.isDisplayed().then(function (isDisplayed) {
+					expect(isDisplayed).to.be(false);
+				});
+			});
+
+			// The back button should be present
+			driver.findElement(webdriver.By.css(".pager")).then(function (element) {
+				element.isDisplayed().then(function (isDisplayed) {
+					expect(isDisplayed).to.be(true);
+				});
+			});
+
+			// The back button should navigate back to the catalog
+			driver.findElement(webdriver.By.css(".pager .previous a")).then(function (element) {
+				element.click();
+			});
+			driver.findElement(webdriver.By.css("#product-catalog .panel-title a")).then(function (element) {
+				element.click();
+			});
+
+			// There should be a product image
+			driver.findElement(webdriver.By.css(".catalog-product .sidebar .product-image")).then(function (element) {
+				element.isDisplayed().then(function (isDisplayed) {
+					expect(isDisplayed).to.be(true);
+				});
+			});
+
+			// There should be a product title
+			driver.findElement(webdriver.By.css(".catalog-product .main .product-title")).then(function (element) {
+				element.getText().then(function (text) {
+					expect(text.length).to.be.greaterThan(0);
+				});
+			});
+
+			// There should be a product description
+			driver.findElement(webdriver.By.css(".catalog-product .main .product-description")).then(function (element) {
+				element.isDisplayed().then(function (isDisplayed) {
+					expect(isDisplayed).to.be(true);
+				});
+			});
+		});
+	});
+
 	test.after(function () {
 		// Clean up Selenium.
 		driver.quit();
