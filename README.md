@@ -45,6 +45,6 @@ Add some products via the `Products` ModelAdmin.
 You're done!
 
 ## More information
-Demo site [http://books.davidcraig.co.nz](http://books.davidcraig.co.nz).
+Demo site [http://davidcraig.co.nz/catalog](http://davidcraig.co.nz/catalog).
 
 This module is also available on [Packagist](https://packagist.org/packages/flashbackzoo/silverstripe-angularjs-modeladmin).
