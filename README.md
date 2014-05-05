@@ -30,33 +30,19 @@ cd silverstripe-angularjs-modeladmin && bower install
 
 Add the following rules to your `.htaccess` file. These rules redirect AngularJS AJAX requests to right place when your catalog isn't the site index.
 ```
-RewriteRule ^([\w\d\/]+silverstripe-angularjs-modeladmin)([\w\d\/.]+)$ /silverstripe-angularjs-modeladmin$2 [L]
-RewriteRule ^([\w\d\/]+productcatalogapi)([\w\d\/.]+)$ /productcatalogapi$2 [L]
+RewriteRule ^([\w\d\/]+silverstripe-angularjs-modeladmin)([\w\d\/.]+)$ silverstripe-angularjs-modeladmin$2 [L]
+RewriteRule ^([\w\d\/]+productcatalogapi)([\w\d\/.]+)$ productcatalogapi$2 [L]
 ```
-
-Create a [virtual host](http://httpd.apache.org/docs/2.2/vhosts/examples.html) for the installation on your local dev environment.
 
 ## Create a Product Catalog
 
 Login to the CMS.
 
-Create a new page at `/catalog` using the `Product Catalog` page type.
+Create a new page using the `Product Catalog` page type.
 
 Add some products via the `Products` ModelAdmin.
 
 You're done!
-
-## Running the end-to-end tests
-
-Install the dependencies:
-```
-npm install
-```
-
-Then from the `test` directory:
-```
-make test HOST=http://your.local/product-catalog
-```
 
 ## More information
 Demo site [http://books.davidcraig.co.nz](http://books.davidcraig.co.nz).

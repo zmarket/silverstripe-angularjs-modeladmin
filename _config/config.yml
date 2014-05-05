@@ -2,6 +2,3 @@
 Name: ProductCatalog
 After: 'framework/routes#coreroutes'
 ---
-Director:
-  rules:
-    'catalog//$Action/$ID': 'ProductCatalogPage_Controller'

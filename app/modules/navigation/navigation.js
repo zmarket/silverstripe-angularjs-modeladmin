@@ -12,7 +12,7 @@ navigationModule.controller("NavigationCtrl", ["$scope", "catalogDataService",
 
 		$scope.$on("$routeChangeSuccess", function (event, current) {
 			// Only show product filters on catalog pages
-			$scope.showFilters = current.loadedTemplateUrl === "/silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html" ? true : false;
+			$scope.showFilters = current.loadedTemplateUrl === "silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html" ? true : false;
 		});
 	}
 ]);
