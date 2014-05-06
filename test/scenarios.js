@@ -58,6 +58,11 @@ test.describe("Product catalog", function () {
 				});
 			});
 
+			// Add a search query
+			driver.findElement(webdriver.By.css(".catalog-search-filter input")).then(function (element) {
+				element.sendKeys("Pies");
+			});
+
 			// Click the 'home' button
 			driver.findElement(webdriver.By.css(".navbar-brand")).then(function (element) {
 				element.click();

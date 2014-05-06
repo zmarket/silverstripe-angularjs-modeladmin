@@ -52,6 +52,7 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 					this.sortOrder.type = "date";
 					this.sortOrder.label = "Latest";
 					this.currentPage = 0;
+					this.searchQuery = "";
 				}
 			},
 			get: function () {
