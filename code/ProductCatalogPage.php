@@ -99,10 +99,11 @@ class ProductCatalogPage_Controller extends Page_Controller {
 		Requirements::combine_files(
 			'vendor.js',
 			array(
-				MODULE_BASE . '/vendor/jquery/dist/jquery.min.js',
+				MODULE_BASE . '/vendor/jquery/jquery.min.js',
 				MODULE_BASE . '/vendor/bootstrap/dist/js/bootstrap.min.js',
 				MODULE_BASE . '/vendor/angular/angular.min.js',
-				MODULE_BASE . '/vendor/angular-route/angular-route.min.js'
+				MODULE_BASE . '/vendor/angular-route/angular-route.min.js',
+				MODULE_BASE . '/vendor/angular-animate/angular-animate.min.js'
 			)
 		);
 

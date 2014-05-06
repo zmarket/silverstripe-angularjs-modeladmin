@@ -2,6 +2,7 @@
 
 var productCatalogApp = window.angular.module("productCatalogApp", [
 	"ngRoute",
+	"ngAnimate",
 	"navigationModule",
 	"catalogModule",
 	"productModule"

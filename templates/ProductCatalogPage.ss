@@ -8,6 +8,7 @@
 		$catalogBaseTag
 		<% require css("silverstripe-angularjs-modeladmin/vendor/bootstrap/dist/css/bootstrap.css") %>
 		<% require css("silverstripe-angularjs-modeladmin/app/modules/product/product.css") %>
+		<% require css("silverstripe-angularjs-modeladmin/app/shared/animations.css") %>
 	</head>
 
 	<body ng-app="productCatalogApp" data-catalog="$URLSegment">
@@ -15,6 +16,8 @@
 		<div ng-controller="NavigationCtrl" ng-init="init({title: '$Title'})" ng-include src="'silverstripe-angularjs-modeladmin/app/modules/navigation/navigation.html'"></div>
 
 		<%-- Main content area --%>
-		<div id="view-container" class="container" ng-view></div>
+		<div class="view-container">
+			<div class="view-frame container" ng-view></div>
+		</div>
 	</body>
 </html>
