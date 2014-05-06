@@ -23,6 +23,8 @@ navigationModule.directive("catalogSortFilter", ["catalogDataService",
 			restrict: "E",
 			templateUrl: "silverstripe-angularjs-modeladmin/app/modules/navigation/catalogSortFilter.html",
 			link: function (scope) {
+				scope.catalog = catalogDataService.get();
+
 				scope.updateSortOrder = function (event, order) {
 					event.preventDefault();
 
@@ -30,13 +32,9 @@ navigationModule.directive("catalogSortFilter", ["catalogDataService",
 						return;
 					}
 
-					catalogDataService.set({
-						sortOrder: {
-							reverse: order === "title" ? false : true,
-							type: order,
-							label: event.target.textContent
-						}
-					});
+					scope.catalog.sortOrder.reverse = order === "title" ? false : true;
+					scope.catalog.sortOrder.type = order;
+					scope.catalog.sortOrder.label = event.target.textContent;
 				};
 			}
 		};

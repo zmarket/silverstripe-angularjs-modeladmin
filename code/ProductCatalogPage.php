@@ -2,6 +2,7 @@
 class ProductCatalogPage extends Page {
 	static $db = array(
 		'ProductsPerPage' => 'Int',
+		'NoResultsMessage' => 'HTMLVarchar'
 	);
 
 	static $has_many = array(
@@ -14,7 +15,11 @@ class ProductCatalogPage extends Page {
 		$productsPerPage = new TextField('ProductsPerPage', 'Products per page');
 		$productsPerPage->setDescription('Use 0 to have all products display on a single page.');
 
+		$noResultsMessage = new TextField('NoResultsMessage', 'No results message');
+		$noResultsMessage->setDescription('The message to display when no products are found in the catalog');
+
 		$fields->addFieldToTab('Root.Main', $productsPerPage);
+		$fields->addFieldToTab('Root.Main', $noResultsMessage);
 
 		return $fields;
 	}
@@ -24,6 +29,7 @@ class ProductCatalogPage extends Page {
 			'title' => $this->Title,
 			'description' => $this->Content,
 			'productsPerPage' => $this->ProductsPerPage,
+			'noResultsMessage' => $this->NoResultsMessage,
 			'products' => array()
 		);
 
@@ -113,7 +119,7 @@ class ProductCatalogPage_Controller extends Page_Controller {
 	}
 
 	public function catalogBaseTag() {
-		$params = $this->getRequest()->allParams();
+		$params = $this->getURLParams();
 
 		$path = ProductCatalogPage::get()->filter('URLSegment', $params['URLSegment'])->First()->Link();
 

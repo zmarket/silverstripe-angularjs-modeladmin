@@ -20,7 +20,7 @@ catalogModule.controller("CatalogCtrl", ["$scope", "$filter", "catalogDataServic
 			// Only reset if the value has actually changed. Don't reset on the initial assignment of $scope.catalog.
 			// Resetting on initialisation will incorrectly set currentPage to 0 when navigating back to the catalog view from another view.
 			if (newValue !== oldValue) {
-				catalogDataService.set({currentPage: 0});
+				$scope.catalog.currentPage = 0;
 			}
 		});
 	}
@@ -53,7 +53,7 @@ catalogModule.directive("catalogPagination", ["catalogDataService",
 				};
 
 				scope.numberOfPages = function () {
-					var numberOfPages = Math.ceil(scope.$parent.catalog.products.length / scope.$parent.catalog.productsPerPage);
+					var numberOfPages = Math.ceil(scope.catalog.products.length / scope.catalog.productsPerPage);
 					return isNaN(numberOfPages) ? 0 : numberOfPages;
 				};
 

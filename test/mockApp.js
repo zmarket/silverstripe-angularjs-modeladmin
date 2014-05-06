@@ -21,6 +21,7 @@ window.angular.module("mockApp", ["ngMockE2E"])
 			title: "Fruit!",
 			description: "<p>Five plus a day every day.</p>",
 			productsPerPage: 1,
+			noResultsMessage: "Sorry, no products found.",
 			products: [{
 				id: 1,
 				title: "Banana",
