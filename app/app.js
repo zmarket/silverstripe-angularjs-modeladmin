@@ -63,10 +63,8 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 
 				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment, { cache: true })
 				.success(function (data) {
-					self.cache.description = data.description;
-					self.cache.products = data.products;
-					self.cache.productsPerPage = data.productsPerPage === "0" ? Infinity : parseInt(data.productsPerPage, 10);
-					self.cache.noResultsMessage = data.noResultsMessage;
+					data.productsPerPage = data.productsPerPage === "0" ? Infinity : parseInt(data.productsPerPage, 10);
+					window.angular.extend(self.cache, data);
 				});
 
 				return this.cache;
