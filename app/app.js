@@ -67,9 +67,7 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 				.success(function (data) {
 					self.cache.description = data.description;
 					self.cache.products = data.products;
-					// TODO: Replace 999 with Infinity when this happens...
-					// https://github.com/angular/angular.js/pull/6772
-					self.cache.productsPerPage = data.productsPerPage === "0" ? 999 : parseInt(data.productsPerPage, 10);
+					self.cache.productsPerPage = data.productsPerPage === "0" ? Infinity : parseInt(data.productsPerPage, 10);
 					self.cache.noResultsMessage = data.noResultsMessage;
 				});
 
