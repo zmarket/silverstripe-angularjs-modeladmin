@@ -28,12 +28,7 @@ productModule.factory("productDataService", ["$rootScope", "$routeParams", "$htt
 					}
 				};
 
-				// Angular's implimentation of .get() doesn't set the "X-Requested-With" header.
-				// We set it manually so we can use SilverStripe's request->isAjax() in ProductCatalogAPI.php
-				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment + "/" + $routeParams.productId, {
-					headers: {"X-Requested-With": "XMLHttpRequest"},
-					cache: true
-				})
+				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment + "/" + $routeParams.productId, { cache: true })
 				.success(function (data) {
 					window.angular.extend(self.cache[$routeParams.productId], data);
 				})

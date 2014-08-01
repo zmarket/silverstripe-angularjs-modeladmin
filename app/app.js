@@ -8,8 +8,8 @@ var productCatalogApp = window.angular.module("productCatalogApp", [
 	"productModule"
 ]);
 
-productCatalogApp.config(["$routeProvider", "$locationProvider",
-	function ($routeProvider, $locationProvider) {
+productCatalogApp.config(["$routeProvider", "$locationProvider", "$httpProvider",
+	function ($routeProvider, $locationProvider, $httpProvider) {
 		// Use the HTML5 History API
 		$locationProvider.html5Mode(true);
 
@@ -26,6 +26,9 @@ productCatalogApp.config(["$routeProvider", "$locationProvider",
 				redirectTo: "/"
 			}
 		);
+
+		// Set the `X-Requested-With` header so we can use SilverStripe's request->isAjax()
+		$httpProvider.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 	}
 ])
 .run(function ($rootScope) {
@@ -58,12 +61,7 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 			get: function () {
 				var self = this;
 
-				// Angular's implimentation of .get() doesn't set the "X-Requested-With" header.
-				// We set it manually so we can use SilverStripe's request->isAjax() in ProductCatalogAPI.php
-				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment, {
-					headers: {"X-Requested-With": "XMLHttpRequest"},
-					cache: true
-				})
+				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment, { cache: true })
 				.success(function (data) {
 					self.cache.description = data.description;
 					self.cache.products = data.products;
