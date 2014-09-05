@@ -20,7 +20,7 @@ cd ./my/website/folder
 
 Grab a copy of the module:
 ```
-git clone https://github.com/flashbackzoo/silverstripe-angularjs-modeladmin.git
+composer require flashbackzoo/silverstripe-angularjs-modeladmin:dev-master
 ```
 
 Install the client-side dependencies:
