@@ -1,0 +1,10 @@
+Image:
+    apple:
+        Title: 'Apple'
+        Filename: 'apple.png'
+
+Product:
+    apple:
+        Title: 'Apple'
+        Description: 'Apples are yum.'
+        Image: =>Image.apple
