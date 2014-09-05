@@ -11,8 +11,8 @@ test.describe("Product catalog", function () {
 	var server,
 		driver,
 		testHost = process.env.SELENIUM_TEST_HOST,
-		testScripts = "<script type=\"text/javascript\" src=\"/silverstripe-angularjs-modeladmin/vendor/angular-mocks/angular-mocks.js\"></script><script type=\"text/javascript\" src=\"/silverstripe-angularjs-modeladmin/test/mockApp.js\"></script>",
-		appTemplatePath = __dirname + "/../templates/ProductCatalogPage.ss",
+		testScripts = "<script type=\"text/javascript\" src=\"silverstripe-angularjs-modeladmin/vendor/angular-mocks/angular-mocks.js\"></script><script type=\"text/javascript\" src=\"silverstripe-angularjs-modeladmin/tests/client/mockApp.js\"></script>",
+		appTemplatePath = __dirname + "/../../templates/ProductCatalogPage.ss",
 		appTemplate = fs.readFileSync(appTemplatePath, {encoding: "utf8"});
 
 	test.before(function () {
