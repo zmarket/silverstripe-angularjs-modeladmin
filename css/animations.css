@@ -13,18 +13,18 @@
 }
 
 .view-frame.ng-enter {
-	-webkit-animation: .8s fade-in;
-	-moz-animation: .8s fade-in;
-	-o-animation: .8s fade-in;
-	animation: .8s fade-in;
+	-webkit-animation: .3s fade-in;
+	-moz-animation: .3s fade-in;
+	-o-animation: .3s fade-in;
+	animation: .3s fade-in;
 	z-index: 100;
 }
 
 .view-frame.ng-leave {
-	-webkit-animation: .8s fade-out;
-	-moz-animation: .8s fade-out;
-	-o-animation: .8s fade-out;
-	animation: .8s fade-out;
+	-webkit-animation: .3s fade-out;
+	-moz-animation: .3s fade-out;
+	-o-animation: .3s fade-out;
+	animation: .3s fade-out;
 	z-index:99;
 }
 

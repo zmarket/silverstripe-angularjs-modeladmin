@@ -28,7 +28,7 @@ productModule.factory("productDataService", ["$rootScope", "$routeParams", "$htt
 					}
 				};
 
-				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment + "/" + $routeParams.productId, { cache: true })
+				$http.get("/api/Product/" + $routeParams.productId, { cache: true })
 				.success(function (data) {
 					window.angular.extend(self.cache[$routeParams.productId], data);
 				})

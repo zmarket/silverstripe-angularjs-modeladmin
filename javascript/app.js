@@ -15,11 +15,11 @@ productCatalogApp.config(["$routeProvider", "$locationProvider", "$httpProvider"
 
 		$routeProvider.
 			when("/", {
-				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/catalog/catalog.html",
+				templateUrl: "/silverstripe-angularjs-modeladmin/javascript/modules/catalog/catalog.html",
 				controller: "CatalogCtrl"
 			})
 			.when("/product/:productId", {
-				templateUrl: "silverstripe-angularjs-modeladmin/app/modules/product/product.html",
+				templateUrl: "/silverstripe-angularjs-modeladmin/javascript/modules/product/product.html",
 				controller: "ProductCtrl"
 			})
 			.otherwise({
@@ -33,7 +33,7 @@ productCatalogApp.config(["$routeProvider", "$locationProvider", "$httpProvider"
 ])
 .run(function ($rootScope) {
 	// Make the URLSegment available throughout the app for use in API calls.
-	$rootScope.catalogUrlSegment = window.$("body").data("catalog");
+	$rootScope.catalogID = window.$("body").data("catalog");
 });
 
 productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
@@ -61,7 +61,7 @@ productCatalogApp.factory("catalogDataService", ["$rootScope", "$http",
 			get: function () {
 				var self = this;
 
-				$http.get("productcatalogapi/" + $rootScope.catalogUrlSegment, { cache: true })
+				$http.get("/api/Catalog/" + $rootScope.catalogID, { cache: true })
 				.success(function (data) {
 					data.productsPerPage = data.productsPerPage === "0" ? Infinity : parseInt(data.productsPerPage, 10);
 					window.angular.extend(self.cache, data);

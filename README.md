@@ -4,47 +4,34 @@ SilverStripe module which connects AngularJS to a SilverStripe ModelAdmin.
 
 ## Requirements
 
-You'll need [SilverStripe CMS](https://github.com/silverstripe/silverstripe-installer) plus [Bower](https://github.com/bower/bower) to manage the client-side dependencies.
+You'll need [Bower](https://github.com/bower/bower) to install the client-side dependencies.
 
 ## Installation
 
-Install a copy of SilverStripe. The easiest way is [via Composer](http://doc.silverstripe.org/framework/en/installation/composer).
-```
-composer create-project silverstripe/installer ./my/website/folder
-```
+Add `"flashbackzoo/silverstripe-angularjs-modeladmin": "dev-master"` to composer.json and do a `composer update`.
 
-Change your working directory:
-```
-cd ./my/website/folder
-```
+Install the client-side dependencies by running `bower install` from the `silverstripe-angularjs-modeladmin` directory.
 
-Grab a copy of the module:
+If you want to deep link to products, add a rule to config.yml, something like this:
 ```
-composer require flashbackzoo/silverstripe-angularjs-modeladmin:dev-master
-```
-
-Install the client-side dependencies:
-```
-cd silverstripe-angularjs-modeladmin && bower install
-```
-
-Add the following rules to your `.htaccess` file. These rules redirect AngularJS AJAX requests to right place when your catalog isn't the site index.
-```
-RewriteRule ^([\w\d\/]+silverstripe-angularjs-modeladmin)([\w\d\/.]+)$ silverstripe-angularjs-modeladmin$2 [L]
-RewriteRule ^([\w\d\/]+productcatalogapi)([\w\d\/.]+)$ productcatalogapi$2 [L]
+---
+Director:
+  rules:
+    'your/catalog/$Action/$ID/$OtherID': 'CatalogPage_Controller'
+---
 ```
 
 ## Create a Product Catalog
 
-Login to the CMS.
+1. Login to the CMS.
 
-Create a new page using the `Product Catalog` page type.
+2. Create a Catalog using the `Catalogs` ModelAdmin.
 
-Add some products via the `Products` ModelAdmin.
+3. Create a Page using the `Catalog` page type.
+
+4. Create a Product using the `Products` ModelAdmin.
 
 You're done!
 
 ## More information
 Demo site [http://davidcraig.co.nz/catalog](http://davidcraig.co.nz/catalog).
-
-This module is also available on [Packagist](https://packagist.org/packages/flashbackzoo/silverstripe-angularjs-modeladmin).

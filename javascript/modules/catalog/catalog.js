@@ -29,7 +29,7 @@ catalogModule.controller("CatalogCtrl", ["$scope", "$filter", "catalogDataServic
 catalogModule.directive("catalogProductList", [function () {
 		return {
 			restrict: "E",
-			templateUrl: "silverstripe-angularjs-modeladmin/app/modules/catalog/catalogProductList.html"
+			templateUrl: "/silverstripe-angularjs-modeladmin/javascript/modules/catalog/catalogProductList.html"
 		};
 	}
 ]);
@@ -38,7 +38,7 @@ catalogModule.directive("catalogPagination", ["catalogDataService",
 	function (catalogDataService) {
 		return {
 			restrict: "E",
-			templateUrl: "silverstripe-angularjs-modeladmin/app/modules/catalog/catalogPagination.html",
+			templateUrl: "/silverstripe-angularjs-modeladmin/javascript/modules/catalog/catalogPagination.html",
 			link: function (scope) {
 				scope.catalog = catalogDataService.get();
 

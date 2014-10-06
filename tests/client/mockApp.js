@@ -6,18 +6,18 @@ window.angular.module("mockApp", ["ngMockE2E"])
 		var d = new Date();
 
 		// Stub product requests
-		$httpBackend.whenGET(/^(productcatalogapi)\/([A-z0-9\-]*)\/([0-9]*)/).respond(200, ")]}',\n" + JSON.stringify({
+		$httpBackend.whenGET(/^\/api\/Product\//).respond(200, ")]}',\n" + JSON.stringify({
 			id: 1,
 			title: "Banana",
 			description: "<p>A banana is an edible fruit produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called plantains.</p>",
 			date: d.setDate(d.getDate() - 1),
 			image: {
-				path: "silverstripe-angularjs-modeladmin/test/banana.jpg"
+				path: "/silverstripe-angularjs-modeladmin/test/banana.jpg"
 			}
 		}));
 
 		// Stub catalog requests
-		$httpBackend.whenGET(/^productcatalogapi\//).respond(200, ")]}',\n" + JSON.stringify({
+		$httpBackend.whenGET(/^\/api\/Catalog\//).respond(200, ")]}',\n" + JSON.stringify({
 			title: "Fruit!",
 			description: "<p>Five plus a day every day.</p>",
 			productsPerPage: 1,
@@ -41,7 +41,7 @@ window.angular.module("mockApp", ["ngMockE2E"])
 		}));
 
 		// Allow all calls not to the API to pass through normally
-		$httpBackend.whenGET(/^silverstripe-angularjs-modeladmin\//).passThrough();
+		$httpBackend.whenGET(/^\/silverstripe-angularjs-modeladmin\//).passThrough();
 	}
 );
 

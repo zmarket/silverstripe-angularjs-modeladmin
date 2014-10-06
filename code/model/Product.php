@@ -7,22 +7,28 @@ class Product extends DataObject {
 
 	static $has_one = array(
 		'Image' => 'Image',
-		'ProductCatalog' => 'ProductCatalogPage'
+		'Catalog' => 'Catalog'
 	);
 
 	static $summary_fields = array(
 		'Title'
 	);
 
-	public function validate() {
-		$result = parent::validate();
+	public function getCMSFields() {
+		$fields = parent::getCMSFields();
 
-		if (empty($this->ProductCatalogID)) {
-			$result->error("Please select a Product Catalog.");
-		}
+		$fields->addFieldToTab(
+			'Root.Main',
+			DropdownField::create(
+				'CatalogID',
+				'Catalog',
+				Catalog::get()->map())
+			->setEmptyString('Select...')
+			->setDescription('The catalog your product will appear in.')
+		);
 
-		return $result;
-    }
+		return $fields;
+	}
 
     public function generateProductJSON() {
 		$data = array(
@@ -45,7 +51,7 @@ class Product extends DataObject {
 	}
 
     public function updateProductCache() {
-		$cache = SS_Cache::factory('ProductCatalog_Product');
+		$cache = SS_Cache::factory('Catalog_Product');
 
 		$JSON = self::generateProductJSON();
 
@@ -55,7 +61,7 @@ class Product extends DataObject {
 	}
 
     public function getProductJSON() {
-		$cache = SS_Cache::factory('ProductCatalog_Product');
+		$cache = SS_Cache::factory('Catalog_Product');
 
 		// Try to get JSON from the cache.
 		if (!($JSON = $cache->load($this->ID))) {
@@ -71,8 +77,8 @@ class Product extends DataObject {
 		self::updateProductCache();
 
 		// Update the catalog cache
-		if ($productCatalogPage = ProductCatalogPage::get()->byID($this->ProductCatalogID)) {
-			$productCatalogPage->updateCatalogCache();
+		if ($catalog = Catalog::get()->byID($this->CatalogID)) {
+			$catalog->updateCatalogCache();
 		}
 	}
 }
