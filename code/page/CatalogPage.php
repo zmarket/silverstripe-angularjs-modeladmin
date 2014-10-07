@@ -61,14 +61,15 @@ class CatalogPage_Controller extends Page_Controller {
     }
 
     /**
-     * Generates a base tag for the catalog
+     * Gets the CatalogPage for the current controller.
+     * This is required when using a custom route for deep linking.
      */
-    public function getCatalogBaseTag() {
+    public function getCatalogPage() {
+        $catalogPage = null;
         $params = $this->getURLParams();
-        $path = '';
 
-        foreach (CatalogPage::get() as $key => $catalogPage) {
-            $link = $catalogPage->Link();
+        foreach (CatalogPage::get() as $key => $page) {
+            $link = $page->Link();
 
             foreach ($params as $key => $param) {
                 if ($param != '' && $key != 'URLSegment') {
@@ -76,14 +77,38 @@ class CatalogPage_Controller extends Page_Controller {
                 }
             }
 
-            if ($link == '/' . $this->request->getUrl() . '/') {
-                $path = $catalogPage->Link();
+            if (trim($link, '/') == $this->request->getUrl()) {
+                $catalogPage = $page;
                 break;
             }
+        }
+
+        return $catalogPage;
+    }
+
+    /**
+     * Generates a base tag for the catalog
+     */
+    public function getCatalogBaseTag() {
+        $params = $this->getURLParams();
+        $path = '';
+
+        if ($catalogPage = $this->getCatalogPage()) {
+            $path = $catalogPage->Link();
         }
 
         $protocol = ($_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http');
 
         return '<base href="' . $protocol . '://' . $_SERVER['HTTP_HOST'] . $path . '">';
+    }
+
+    public function getCatalogID() {
+        $catalogID = 0;
+
+        if ($catalogPage = $this->getCatalogPage()) {
+            $catalogID = $catalogPage->CatalogID;
+        }
+
+        return $catalogID;
     }
 }
