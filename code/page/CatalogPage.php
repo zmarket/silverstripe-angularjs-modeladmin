@@ -77,7 +77,7 @@ class CatalogPage_Controller extends Page_Controller {
                 }
             }
 
-            if (trim($link, '/') == $this->request->getUrl()) {
+            if (($link == '/' && $this->request->getUrl() == 'home') || trim($link, '/') == $this->request->getUrl()) {
                 $catalogPage = $page;
                 break;
             }

@@ -8,7 +8,7 @@ You'll need [Bower](https://github.com/bower/bower) to install the client-side d
 
 ## Installation
 
-Require the module by adding `"flashbackzoo/silverstripe-angularjs-modeladmin": "1.0.0"` to your site's composer.json file. Then run a `composer update` to download the module.
+Require the module by adding `"flashbackzoo/silverstripe-angularjs-modeladmin": "1.0.*"` to your site's composer.json file. Then run a `composer update` to download the module.
 
 Run a dev/build on your site.
 
@@ -16,12 +16,18 @@ Install the client-side dependencies by running `bower install` from the `silver
 
 To enable deep linking (optional), add a rule to your site's config.yml, something like this:
 ```
----
 Director:
   rules:
     'your/catalog/$Action/$ID/$OtherID': 'CatalogPage_Controller'
----
 ```
+If you're creating a catalog on the homepage, these are the rules you'll need:
+```
+Director:
+  rules:
+    'home/$Action/$ID/$OtherID': 'CatalogPage_Controller'
+    'product/$ID/$OtherID': 'CatalogPage_Controller'
+```
+The second 'product' rule is only required if your catalog is on the homepage.
 
 ## Create a Product Catalog
 
