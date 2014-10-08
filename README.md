@@ -8,7 +8,7 @@ You'll need [Bower](https://github.com/bower/bower) to install the client-side d
 
 ## Installation
 
-Require the module by adding `"flashbackzoo/silverstripe-angularjs-modeladmin": "1.0.*"` to your site's composer.json file. Then run a `composer update` to download the module.
+Require the module by adding `"flashbackzoo/silverstripe-angularjs-modeladmin": "1.0.*@dev"` to your site's composer.json file. Then run a `composer update` to download the module.
 
 Run a dev/build on your site.
 
