@@ -10,7 +10,7 @@
 
     <body ng-app="productCatalogApp" data-catalog="$CatalogID">
         <%-- Main navigation --%>
-        <div ng-controller="NavigationCtrl" ng-init="init({title: '$Title'})" ng-include src="'/silverstripe-angularjs-modeladmin/javascript/modules/navigation/navigation.html'"></div>
+        <div ng-controller="NavigationCtrl" ng-include src="'/silverstripe-angularjs-modeladmin/javascript/modules/navigation/navigation.html'"></div>
 
         <div class="container">
             $Content

@@ -104,9 +104,16 @@ class CatalogPage_Controller extends Page_Controller {
 
     public function getCatalogID() {
         $catalogID = 0;
+        $params = $this->getURLParams();
 
         if ($catalogPage = $this->getCatalogPage()) {
             $catalogID = $catalogPage->CatalogID;
+        } elseif ($params['Action'] == '') { // We're on the homepage
+            foreach (CatalogPage::get() as $key => $page) {
+                if ($page->Link() == '/') {
+                    $catalogID = $page->ID;
+                }
+            }
         }
 
         return $catalogID;
