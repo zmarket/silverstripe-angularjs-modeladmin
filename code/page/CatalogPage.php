@@ -12,10 +12,13 @@ class CatalogPage extends Page {
     public function getCMSFields() {
         $fields = parent::getCMSFields();
 
-        $catalogDropdown = DropdownField::create('CatalogID', 'Catalog to display', Catalog::get()->map('ID', 'Title'))
-            ->setEmptyString('Select...');
+        $fields->removeFieldFromTab('Root.Main', 'Content');
 
-        $fields->addFieldToTab('Root.Main', $catalogDropdown);
+        $fields->insertAfter(
+            DropdownField::create('CatalogID', 'Catalog to display', Catalog::get()->map('ID', 'Title'))
+                ->setEmptyString('Select...'),
+            'MenuTitle'
+        );
 
         return $fields;
     }

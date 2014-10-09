@@ -2,6 +2,7 @@
 class Catalog extends DataObject {
     static $db = array(
         'Title' => 'Varchar(255)',
+        'Description' => 'HTMLText',
         'ProductsPerPage' => 'Int',
         'NoResultsMessage' => 'Varchar(255)'
     );
@@ -21,15 +22,23 @@ class Catalog extends DataObject {
     public function getCMSFields() {
         $fields = parent::getCMSFields();
 
-        $title = TextField::create('Title', 'Title');
-        $productsPerPage = NumericField::create('ProductsPerPage', 'Products per page')
-            ->setDescription('Use 0 to have all products display on a single page.');
-        $noResultsMessage = TextField::create('NoResultsMessage', 'No results message')
-            ->setDescription('The message to display when no products are found in the catalog');
+        $fields->addFieldToTab('Root.Main',
+            TextField::create('Title', 'Title')
+        );
 
-        $fields->addFieldToTab('Root.Main', $title);
-        $fields->addFieldToTab('Root.Main', $noResultsMessage);
-        $fields->addFieldToTab('Root.Main', $productsPerPage);
+        $fields->addFieldToTab('Root.Main',
+            HTMLEditorField::create('Description', 'Description')
+        );
+
+        $fields->addFieldToTab('Root.Main',
+            NumericField::create('ProductsPerPage', 'Products per page')
+                ->setDescription('Use 0 to have all products display on a single page.')
+        );
+
+        $fields->addFieldToTab('Root.Main',
+            TextField::create('NoResultsMessage', 'No results message')
+                ->setDescription('The message to display when no products are found in the catalog')
+        );
 
         return $fields;
     }
@@ -37,7 +46,7 @@ class Catalog extends DataObject {
     public function generateCatalogJSON() {
         $data = array(
             'title' => $this->Title,
-            'description' => $this->Content,
+            'description' => $this->Description,
             'productsPerPage' => $this->ProductsPerPage,
             'noResultsMessage' => $this->NoResultsMessage,
             'products' => array()

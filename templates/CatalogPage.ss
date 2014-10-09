@@ -12,10 +12,6 @@
         <%-- Main navigation --%>
         <div ng-controller="NavigationCtrl" ng-include src="'/silverstripe-angularjs-modeladmin/javascript/modules/navigation/navigation.html'"></div>
 
-        <div class="container">
-            $Content
-        </div>
-
         <%-- Main content area --%>
         <div class="view-container">
             <div class="view-frame container" ng-view></div>
