@@ -1,10 +1,11 @@
-<?php   
-class ProductAdmin extends ModelAdmin {
+<?php 
+class ProductAdmin extends ModelAdmin
+{
     public static $managed_models = array(
         'Product'
     );
 
-    static $url_segment = 'products';
+    public static $url_segment = 'products';
 
-    static $menu_title = 'Products';
+    public static $menu_title = 'Products';
 }
