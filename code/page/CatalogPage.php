@@ -1,15 +1,17 @@
 <?php
-class CatalogPage extends Page {
+class CatalogPage extends Page
+{
  
-    static $has_one = array(
+    public static $has_one = array(
         'Catalog' => 'Catalog'
     );
  
-    static $allowed_children = array(
+    public static $allowed_children = array(
         'none' => 'none'
     );
 
-    public function getCMSFields() {
+    public function getCMSFields()
+    {
         $fields = parent::getCMSFields();
 
         $catalogDropdown = DropdownField::create('CatalogID', 'Catalog to display', Catalog::get()->map('ID', 'Title'))
@@ -21,9 +23,11 @@ class CatalogPage extends Page {
     }
 }
 
-class CatalogPage_Controller extends Page_Controller {
+class CatalogPage_Controller extends Page_Controller
+{
 
-    public function init() {
+    public function init()
+    {
         parent::init();
 
         // CSS requirements
@@ -64,7 +68,8 @@ class CatalogPage_Controller extends Page_Controller {
      * Gets the CatalogPage for the current controller.
      * This is required when using a custom route for deep linking.
      */
-    public function getCatalogPage() {
+    public function getCatalogPage()
+    {
         $catalogPage = null;
         $params = $this->getURLParams();
 
@@ -89,7 +94,8 @@ class CatalogPage_Controller extends Page_Controller {
     /**
      * Generates a base tag for the catalog
      */
-    public function getCatalogBaseTag() {
+    public function getCatalogBaseTag()
+    {
         $params = $this->getURLParams();
         $path = '';
 
@@ -102,7 +108,8 @@ class CatalogPage_Controller extends Page_Controller {
         return '<base href="' . $protocol . '://' . $_SERVER['HTTP_HOST'] . $path . '">';
     }
 
-    public function getCatalogID() {
+    public function getCatalogID()
+    {
         $catalogID = 0;
         $params = $this->getURLParams();
 

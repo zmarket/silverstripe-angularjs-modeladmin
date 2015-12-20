@@ -1,10 +1,11 @@
-<?php   
-class CatalogAdmin extends ModelAdmin {
+<?php 
+class CatalogAdmin extends ModelAdmin
+{
     public static $managed_models = array(
         'Catalog'
     );
 
-    static $url_segment = 'catalogs';
+    public static $url_segment = 'catalogs';
 
-    static $menu_title = 'Catalogs';
+    public static $menu_title = 'Catalogs';
 }

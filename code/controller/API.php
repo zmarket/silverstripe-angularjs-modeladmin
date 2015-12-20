@@ -1,11 +1,13 @@
 <?php
-class API extends Controller {
+class API extends Controller
+{
 
     private static $allowed_actions = array('handler');
 
     public static $url_handlers = array('$Action/$ID/$OtherID' => 'handler');
 
-    public function handler() {
+    public function handler()
+    {
         $params = $this->getURLParams();
         $catalog = null;
         $product = null;

@@ -1,24 +1,26 @@
 <?php
-class Catalog extends DataObject {
-    static $db = array(
+class Catalog extends DataObject
+{
+    public static $db = array(
         'Title' => 'Varchar(255)',
         'ProductsPerPage' => 'Int',
         'NoResultsMessage' => 'Varchar(255)'
     );
 
-    static $defaults = array(   
+    public static $defaults = array(
         'Title' => 'New Catalog'
     );
 
-    static $has_many = array(
+    public static $has_many = array(
         'Products' => 'Product'
     );
 
-    static $summary_fields = array(
+    public static $summary_fields = array(
         'Title' => 'Title'
     );
 
-    public function getCMSFields() {
+    public function getCMSFields()
+    {
         $fields = parent::getCMSFields();
 
         $title = TextField::create('Title', 'Title');
@@ -34,7 +36,8 @@ class Catalog extends DataObject {
         return $fields;
     }
 
-    public function generateCatalogJSON() {
+    public function generateCatalogJSON()
+    {
         $data = array(
             'title' => $this->Title,
             'description' => $this->Content,
@@ -43,7 +46,7 @@ class Catalog extends DataObject {
             'products' => array()
         );
 
-        foreach($this->Products() as $product) {
+        foreach ($this->Products() as $product) {
             $item = array(
                 'id' => $product->ID,
                 'date' => strtotime($product->Created),
@@ -69,7 +72,8 @@ class Catalog extends DataObject {
         return $JSON;
     }
 
-    public function updateCatalogCache() {
+    public function updateCatalogCache()
+    {
         $cache = SS_Cache::factory('Catalog_Catalog');
 
         $JSON = self::generateCatalogJSON();
@@ -79,7 +83,8 @@ class Catalog extends DataObject {
         return $JSON;
     }
 
-    public function getCatalogJSON() {
+    public function getCatalogJSON()
+    {
         $cache = SS_Cache::factory('Catalog_Catalog');
 
         // Try to get JSON from the cache.
@@ -90,7 +95,8 @@ class Catalog extends DataObject {
         return $JSON;
     }
 
-    public function onAfterWrite() {
+    public function onAfterWrite()
+    {
         parent::onAfterWrite();
 
         self::updateCatalogCache();
