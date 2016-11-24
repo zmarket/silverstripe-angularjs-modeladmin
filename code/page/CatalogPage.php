@@ -6,9 +6,7 @@ class CatalogPage extends Page
         'Catalog' => 'Catalog'
     );
  
-    public static $allowed_children = array(
-        'none' => 'none'
-    );
+    public static $allowed_children = 'none' ;
 
     public function getCMSFields()
     {
